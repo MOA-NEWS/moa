@@ -19,14 +19,14 @@ public class MemberService {
     @Transactional
     public void join(MemberForm memberForm) {
         Member member = new Member(memberForm.getName(), RoleStatus.USER);
-        validateDuplicateMember(member);
+        validateDuplicateMember(member.getName());
         memberRepository.save(member);
     }
 
-    private void validateDuplicateMember(Member member) {
-        memberRepository.findByName(member.getName())
+    private void validateDuplicateMember(String memberName) {
+        memberRepository.findByName(memberName)
                 .ifPresent(value -> {
-                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                    throw new IllegalStateException("이미 존재하는 회원입니다. : " + memberName);
                 });
     }
 
@@ -40,11 +40,13 @@ public class MemberService {
 
     @Transactional
     public boolean update(MemberForm memberForm) {
+
         Optional<Member> findMember = memberRepository.findById(memberForm.getId());
         if (findMember.isPresent()) {
             Member member = findMember.get();
 
             if (member.getName().equals(memberForm.getName())) return false;
+            validateDuplicateMember(memberForm.getName());
 
             member.setName(memberForm.getName());
         }

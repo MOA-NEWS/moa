@@ -37,9 +37,10 @@ public class CommentService {
         return commentRepository.findAll();
     }
 
-    public List<Comment> findAllById(Long boardId) {
-        return commentRepository.findAllById(boardId);
+    public List<Comment> findAllByBoardId(Long boardId) {
+        return commentRepository.findAllByBoardId(boardId);
     }
+
 
     @Transactional
     public void addComment(Long boardId, Long memberId, CommentForm commentForm) {
@@ -64,4 +65,5 @@ public class CommentService {
         //저장
         commentRepository.save(comment);
     }
+
 }

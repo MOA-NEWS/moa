@@ -4,8 +4,10 @@ import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
 import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
+import com.moa.domain.Comment;
 import com.moa.domain.Member;
 import com.moa.service.BoardService;
+import com.moa.service.CommentService;
 import com.moa.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ import java.util.List;
 public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
+    private final CommentService commentService;
 
     // 페이징 : 아직안함
     @GetMapping("/boards/list")
@@ -49,16 +52,17 @@ public class BoardController {
         return "redirect:/boards/list";
     }
 
-    @GetMapping("/boards/{id}")
-    public String detail(@PathVariable("id") Long id, Model model) {
-        Board findBoard = boardService.findOne(id);
+    @GetMapping("/boards/{boardId}")
+    public String detail(@PathVariable("boardId") Long boardId, Model model) {
+        Board findBoard = boardService.findOne(boardId);
         BoardForm form = new BoardForm();
-        form.setId(id);
+        form.setId(boardId);
         form.setTitle(findBoard.getTitle());
         form.setContent(findBoard.getContent());
-
+        List<Comment> comments = commentService.findAllByBoardId(boardId);
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
+        model.addAttribute("comments",comments);
         return "boards/detail";
     }
 

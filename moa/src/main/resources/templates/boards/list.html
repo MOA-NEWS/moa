@@ -26,7 +26,7 @@
             <tr th:each="board : ${boards}">
                 <td th:text="${board.id}"></td>
                 <td class="col-md-7">
-                    <a th:href="@{/boards/{id}(id = ${board.id})}"
+                    <a th:href="@{/boards/{boardId}(boardId = ${board.id})}"
                         class="text-dark link-underline-secondary link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">
                         <span th:text="${board.title}"></span>
                         <span class="text-danger text-opacity-75" th:text="'[ '+${board.comments.size}+' ]'"></span>

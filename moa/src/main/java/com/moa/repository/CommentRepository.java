@@ -25,7 +25,7 @@ public class CommentRepository {
         return em.createQuery("select c from Comment c", Comment.class)
                 .getResultList();
     }
-    public List<Comment> findAllById(Long boardId) {
+    public List<Comment> findAllByBoardId(Long boardId) {
         return em.createQuery("select c from Comment c join c.board b where b.id = :id", Comment.class)
                 .setParameter("id", boardId)
                 .getResultList();
