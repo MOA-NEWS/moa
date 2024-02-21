@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>List</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <h3>게시글 목록</h3>
+    <div>
+        <table class="table table-hover">
+            <thead class="table-light">
+            <tr>
+                <th>*</th>
+                <th class="col-md-7">제목</th>
+                <th class="col-md-3">날짜</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <th:block th:if="not ${boards.size()}">
+                <tr>
+                    <td class="text-center" colspan="3">첫 게시글을 남겨주세요!</td>
+                </tr>
+            </th:block>
+            <tr th:each="board : ${boards}">
+                <td th:text="${board.id}"></td>
+                <td class="col-md-7">
+                    <a th:href="@{/boards/{id}(id = ${board.id})}"
+                        class="text-dark link-underline-secondary link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">
+                        <span th:text="${board.title}"></span>
+                        <span class="text-danger text-opacity-75" th:text="'[ '+${board.comments.size}+' ]'"></span>
+                    </a>
+                </td>
+                <td class="col-md-3" th:text="${board.postDate}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <a href="/boards/new">
+                <button class="btn btn-primary">글쓰기</button>
+            </a>
+        </div>
+    </div>
+
+
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
