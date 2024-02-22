@@ -1,8 +1,8 @@
 ### CUSTOM ###
-test/
+src/test/
 README.md
-uml/
-!description/
+file/uml/
+!file/description/
 
 
 HELP.md
