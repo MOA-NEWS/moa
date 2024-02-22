@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @Setter
 public class CommentForm {
     private Long parentId;
-    private String text;
+    private Long boardId;
+    private String content;
     private LocalDateTime commentDate;
 }

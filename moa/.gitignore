@@ -1,7 +1,11 @@
-uml/
+### CUSTOM ###
+test/
+README.md
+file/uml/
+!file/description/
+
 
 HELP.md
-README.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar

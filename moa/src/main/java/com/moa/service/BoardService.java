@@ -18,6 +18,10 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
+    public void save(Board board) {
+        boardRepository.save(board);
+    }
+    @Transactional
     public void save(BoardForm boardForm, Member member) {
         Board board = new Board(boardForm.getTitle(), boardForm.getContent(), member);
         boardRepository.save(board);

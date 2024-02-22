@@ -25,8 +25,10 @@ public class CommentRepository {
         return em.createQuery("select c from Comment c", Comment.class)
                 .getResultList();
     }
+
     public List<Comment> findAllByBoardId(Long boardId) {
-        return em.createQuery("select c from Comment c join c.board b where b.id = :id", Comment.class)
+        String jpql = "select c from Comment c left join fetch c.parent p where c.board.id = :id order by coalesce(p.id, c.id), c.commentDate";
+        return em.createQuery(jpql, Comment.class)
                 .setParameter("id", boardId)
                 .getResultList();
     }

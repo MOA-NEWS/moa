@@ -39,7 +39,7 @@ public class BoardRepository {
     public List<Board> findAllWithFetch() {
         String jpql = "select b from Board b" +
                 " left join fetch b.comments p" +
-                " left join fetch p.childs c";
+                " left join fetch p.children c";
         return em.createQuery(jpql, Board.class)
                 .getResultList();
     }

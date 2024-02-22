@@ -23,17 +23,24 @@
             <form th:action="@{/comments/{boardId}(boardId = ${boardForm.id})}"
                   class="form-floating d-md-flex justify-content-md-center" th:object="${commentForm}"
                   method="post">
-                <textarea class="my-3 form-control" th:field="*{text}" cols="30" rows="4"
+                <textarea class="my-3 form-control" th:field="*{content}" cols="30" rows="4"
                           style="resize: none;"></textarea>
-                <input type="submit" value="작성">
+                <input class="btn btn-secondary" type="submit" value="작성">
             </form>
         </div>
         <!--댓글 목록-->
-        <div th:each="comment : ${comments}">
-            <div th:text="${comment.member.name}"></div>
-            <div th:text="${comment.content}"></div>
+        <div class="border-secondary mb-3" th:each="comment : ${comments}">
+            <div th:text="${comment.member.name}">
+            </div>
+            <div class="d-md-flex justify-content-md-between">
+                <span th:text="${comment.content}"></span>
+                <a th:href="@{/comments/{boardId}/{parentId}(boardId = ${boardForm.id}, parentId = ${comment.id})}"
+                   class="link-underline-opacity-0">
+                    <img src="/image/arrow-return-right.svg" alt="대댓글">
+                </a>
+            </div>
             <div th:text="${comment.commentDate}"></div>
-
+            <hr>
         </div>
     </div>
 

@@ -57,7 +57,7 @@ public class CommentService {
         }
 
         //생성
-        Comment comment = Comment.createComment(commentForm.getText(), member, board);
+        Comment comment = Comment.createComment(commentForm.getContent(), member, board);
         if (parent != null) {
             comment.setParent(parent);
         }

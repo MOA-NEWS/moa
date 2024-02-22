@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>Login</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <h3>대댓글</h3>
+<!--          th:action="@{/comments/{boardId}/{parentId}(boardId = *{boardId}, parentId = *{parentId})}"-->
+    <form th:object="${commentForm}"
+          th:action="@{/comments/reply/{boardId}(boardId = *{boardId})}"
+          method="post">
+        <div class="form-floating mb-3">
+            <input type="hidden" th:field="*{parentId}">
+            <input type="text" th:class="form-control"
+                   th:field="*{content}" autofocus>
+        </div>
+        <button type="submit" class="btn btn-primary">작성</button>
+    </form>
+
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

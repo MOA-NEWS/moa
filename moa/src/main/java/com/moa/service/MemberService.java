@@ -17,6 +17,11 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
+    public void join(Member member) {
+        memberRepository.save(member);
+    }
+
+    @Transactional
     public void join(MemberForm memberForm) {
         Member member = new Member(memberForm.getName(), RoleStatus.USER);
         validateDuplicateMember(member.getName());
