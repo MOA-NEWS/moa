@@ -12,5 +12,7 @@ public class BoardForm {
 
     private String content;
 
+    private int likeCount;
+
 //    private LocalDateTime postDate;
 }

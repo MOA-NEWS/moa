@@ -4,8 +4,10 @@ import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
 import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
+import com.moa.domain.BoardLiked;
 import com.moa.domain.Comment;
 import com.moa.domain.Member;
+import com.moa.service.BoardLikedService;
 import com.moa.service.BoardService;
 import com.moa.service.CommentService;
 import com.moa.service.MemberService;
@@ -25,6 +27,7 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
     private final CommentService commentService;
+    private final BoardLikedService boardLikedService;
 
     // 페이징 : 아직안함
     @GetMapping("/boards/list")
@@ -63,6 +66,7 @@ public class BoardController {
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
         model.addAttribute("comments",comments);
+        model.addAttribute("likeCount", boardLikedService.countLikes(boardId));
         return "boards/detail";
     }
 

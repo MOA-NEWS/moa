@@ -32,6 +32,9 @@ public class Board {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoardLiked> boardLikeds = new ArrayList<>();
+
     // 기본생성자 사용 금지
     protected Board() {
     }
