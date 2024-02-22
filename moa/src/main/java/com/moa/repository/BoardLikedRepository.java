@@ -1,8 +1,6 @@
 package com.moa.repository;
 
-import com.moa.domain.Board;
 import com.moa.domain.BoardLiked;
-import com.moa.domain.Member;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
