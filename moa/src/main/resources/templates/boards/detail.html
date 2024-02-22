@@ -13,13 +13,25 @@
             <textarea class="my-3 " th:field="*{content}" cols="30" rows="10" readonly
                       style="resize: none;"></textarea>
         </div>
-        <div>
-            <!-- 좋아요 버튼 -->
-            <form class="form-floating" th:action="@{/boards/{boardId}/like(boardId=${boardForm.id})}" method="post">
-                <button type="submit" class="btn btn-primary">좋아요</button>
-            </form>
-            <!-- 누적 좋아요 수 -->
-            <span th:text="${likeCount} + '명이 좋아합니다'"></span>
+        <div style="display: flex; justify-content: flex-start;">
+            <div>
+                <!-- 좋아요 버튼 -->
+                <form class="form-floating" th:action="@{/boards/{boardId}/like(boardId=${boardForm.id})}" method="post">
+                    <button type="submit" class="btn btn-primary">
+                        <!-- 누적 좋아요 수 -->
+                        👍 <span th:text=" ${likeCount} + '개'"></span>
+                    </button>
+                </form>
+            </div>
+            <div style="margin-left: 10px;">
+                <!-- 싫어요 버튼 -->
+                <form class="form-floating" th:action="@{/boards/{boardId}/dislike(boardId=${boardForm.id})}" method="post">
+                    <button type="submit" class="btn btn-primary">
+                        <!-- 누적 싫어요 수 -->
+                        👎 <span th:text=" ${dislikeCount} + '개'"></span>
+                    </button>
+                </form>
+            </div>
         </div>
 
     </div>
