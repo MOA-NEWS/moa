@@ -1,6 +1,5 @@
 package com.moa.service;
 
-import com.moa.controller.form.BoardForm;
 import com.moa.domain.Board;
 import com.moa.domain.BoardLiked;
 import com.moa.repository.BoardLikedRepository;
@@ -9,7 +8,6 @@ import com.moa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 
 @Service
 @RequiredArgsConstructor
