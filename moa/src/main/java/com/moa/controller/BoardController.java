@@ -4,10 +4,9 @@ import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
 import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
-import com.moa.domain.BoardLiked;
 import com.moa.domain.Comment;
 import com.moa.domain.Member;
-import com.moa.service.BoardLikedService;
+import com.moa.service.BoardPreferenceService;
 import com.moa.service.BoardService;
 import com.moa.service.CommentService;
 import com.moa.service.MemberService;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class BoardController {
     private final BoardService boardService;
     private final MemberService memberService;
     private final CommentService commentService;
-    private final BoardLikedService boardLikedService;
+    private final BoardPreferenceService boardPreferenceService;
 
     // 페이징 : 아직안함
     @GetMapping("/boards/list")
@@ -39,7 +39,13 @@ public class BoardController {
     }
 
     @GetMapping("/boards/new")
-    public String createBoardForm(Model model) {
+    public String createBoardForm(Model model, HttpServletRequest request, RedirectAttributes re) {
+        MemberForm mForm = (MemberForm) request.getSession().getAttribute("user");
+        if(mForm == null) {
+            // Model에 저장됨
+            re.addFlashAttribute("loginFail", "로그인 후에 이용해주세요");
+            return "redirect:/members/login";
+        }
         model.addAttribute("boardForm", new BoardForm());
         return "boards/boardForm";
     }
@@ -51,7 +57,6 @@ public class BoardController {
         if (member != null) {
             boardService.save(boardForm, member);
         }
-
 
         return "redirect:/boards/list";
     }
@@ -67,10 +72,10 @@ public class BoardController {
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
-        model.addAttribute("comments", comments);
-        model.addAttribute("likeCount", boardLikedService.countLikes(boardId));
+
+        model.addAttribute("comments",comments);
+        model.addAttribute("likeCount", boardPreferenceService.countLikes(boardId));
+        model.addAttribute("dislikeCount", boardPreferenceService.countDislikes(boardId));
         return "boards/detail";
     }
-
-
 }

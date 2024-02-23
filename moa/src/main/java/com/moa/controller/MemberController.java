@@ -79,14 +79,6 @@ public class MemberController {
             model.addAttribute("memberForm", form);
         }
 
-//        if(findMember.isPresent()){
-//            Member m = findMember.get();
-//            MemberForm form = new MemberForm();
-//            form.setName(m.getName());
-//            form.setRole(m.getRole());
-//
-//            model.addAttribute("memberForm", form);
-//        }
         return "members/info";
     }
 
