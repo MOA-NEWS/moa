@@ -5,13 +5,12 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container min-vh-90 h-auto">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
     <h3>글 작성</h3>
     <form class="form-floating" action="/boards/new" th:object="${boardForm}" method="post">
         <div>
-            <!--            인풋 박스 밑줄 주고 싶은데 테두리 다나오네?-->
             <input class="form-control border-bottom border-secondary" th:field="*{title}" type="text"
                    placeholder="제목을 입력하세요."/>
         </div>

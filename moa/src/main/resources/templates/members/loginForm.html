@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container min-vh-90 h-auto">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
     <h3>로그인</h3>
     <form action="/members/login" th:object="${memberForm}" method="post">

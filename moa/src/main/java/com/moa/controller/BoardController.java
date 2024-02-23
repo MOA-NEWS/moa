@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -31,8 +32,8 @@ public class BoardController {
 
     // 페이징 : 아직안함
     @GetMapping("/boards/list")
-    public String boardList(Model model) {
-        List<Board> boards = boardService.findAll();
+    public String boardList(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
+        List<Board> boards = boardService.findAll(page);
         model.addAttribute("boards", boards);
         return "boards/list";
     }
@@ -63,9 +64,10 @@ public class BoardController {
         form.setTitle(findBoard.getTitle());
         form.setContent(findBoard.getContent());
         List<Comment> comments = commentService.findAllByBoardId(boardId);
+
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments", comments);
         model.addAttribute("likeCount", boardLikedService.countLikes(boardId));
         return "boards/detail";
     }

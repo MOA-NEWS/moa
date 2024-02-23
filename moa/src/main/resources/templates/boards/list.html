@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container min-vh-90 h-auto">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
     <h3>게시글 목록</h3>
     <div>
@@ -24,7 +24,7 @@
                 </tr>
             </th:block>
             <tr th:each="board : ${boards}">
-                <td th:text="${board.id}"></td>
+                <td class="col-md-2" th:text="${board.id}"></td>
                 <td class="col-md-7">
                     <a th:href="@{/boards/{boardId}(boardId = ${board.id})}"
                         class="text-dark link-underline-secondary link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover">

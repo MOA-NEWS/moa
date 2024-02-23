@@ -17,6 +17,7 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
 
+
     @Transactional
     public void save(Board board) {
         boardRepository.save(board);
@@ -31,8 +32,8 @@ public class BoardService {
         return boardRepository.findById(boardId).orElse(null);
     }
 
-    public List<Board> findAll() {
-        return boardRepository.findAll();
+    public List<Board> findAll(int page) {
+        return boardRepository.findAll(page);
     }
 
 
