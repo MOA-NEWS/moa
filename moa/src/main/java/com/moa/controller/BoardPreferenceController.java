@@ -47,7 +47,7 @@ public class BoardPreferenceController {
         return "redirect:/boards/" + boardId;
     }
 
-    //좋아요 / 싫어요
+    // 좋아요 / 싫어요 통합
     @PostMapping({"/boards/{boardId}/dislike", "/boards/{boardId}/like"})
     public String togglePrefer(@PathVariable Long boardId, HttpServletRequest request, RedirectAttributes re) {
         // path가 .../dislike인지 확인
