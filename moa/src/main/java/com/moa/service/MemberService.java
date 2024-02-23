@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,6 +42,11 @@ public class MemberService {
 
     public Member findOne(Long memberId) {
         return memberRepository.findById(memberId).orElse(null);
+    }
+
+    // 모든 일반유저 검색
+    public List<Member> findAllMembers() {
+        return memberRepository.findAllMembers();
     }
 
     @Transactional

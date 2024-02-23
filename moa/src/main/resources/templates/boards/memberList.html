@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+    <title>List</title>
+</head>
+<body>
+
+<div class="container min-vh-90 h-auto">
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
+    <h3>일반 유저 목록</h3>
+    <div>
+        <table class="table table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>*</th>
+                    <th class="col-md-7">이름</th>
+                    <th class="col-md-3">등급</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <tr th:each="member : ${members}">
+                    <td class="col-md-2" th:text="${member.id}"></td>
+                    <td class="col-md-7" th:text="${member.name}"></td>
+                    <td class="col-md-3" th:text="${member.role}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
