@@ -1,6 +1,7 @@
 package com.moa.repository;
 
 import com.moa.domain.Member;
+import com.moa.domain.RoleStatus;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,6 +32,13 @@ public class MemberRepository {
 
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
+                .getResultList();
+    }
+
+    // 모든 일반유저 검색
+    public List<Member> findAllMembers() {
+        return em.createQuery("SELECT m FROM Member m WHERE m.role = :role", Member.class)
+                .setParameter("role", RoleStatus.USER)
                 .getResultList();
     }
 

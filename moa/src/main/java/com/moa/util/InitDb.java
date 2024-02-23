@@ -1,10 +1,10 @@
-package com.moa.service;
+package com.moa.util;
 
 import com.moa.domain.Board;
 import com.moa.domain.Member;
 import com.moa.domain.Comment;
 import com.moa.domain.RoleStatus;
-import com.moa.repository.MemberRepository;
+import com.moa.service.MemberService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +23,8 @@ public class InitDb {
     public void init() {
         initService.dbInit1();
         initService.dbInit2();
+        initService.dbInit3();
+        initService.dbInit4();
     }
 
     @Component
@@ -41,10 +43,7 @@ public class InitDb {
 
             Board book2 = createBoard("2nd", "두번째", findMember);
             em.persist(book2);
-
-
         }
-
 
         public void dbInit2() {
             Member member = createMember("userB", RoleStatus.USER);
@@ -56,8 +55,20 @@ public class InitDb {
 
             Board book2 = createBoard("4th", "네번째", findMember);
             em.persist(book2);
+        }
 
+        public void dbInit3() {
+            Member member = createMember("userC", RoleStatus.USER);
+            em.persist(member);
+        }
 
+        public void dbInit4() {
+            Member member = createMember("userD", RoleStatus.USER);
+            em.persist(member);
+
+            Member findMember = memberService.findOne("userD");
+            Board book1 = createBoard("Gear 5", "동물계 환수종 사람사람 열매 모델 니카", findMember);
+            em.persist(book1);
         }
 
         // 생성자 메소드

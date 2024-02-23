@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -53,6 +54,8 @@ public class MemberController {
         }
         memberForm.setId(findMember.getId());
         request.getSession().setAttribute("user", memberForm);
+        request.getSession().setAttribute("role", findMember.getRole().toString());
+        request.getSession().setAttribute("name", findMember.getName());
         return "redirect:/";
     }
 
@@ -122,5 +125,29 @@ public class MemberController {
         }
         re.addFlashAttribute("retireFail", "처리 중에 문제가 발생되었습니다. 다시 한번 시도해주세요.");
         return "redirect:/members/retire";
+    }
+
+    // 모든 일반유저 검색
+    @GetMapping("/admin/members")
+    public String getAllUsers(Model model, HttpServletRequest request) {
+        MemberForm memberForm = (MemberForm) request.getSession().getAttribute("user");
+        if (memberForm == null) {
+            // 로그인되어 있지 않은 경우 로그인 페이지로 리다이렉트
+            return "redirect:/members/login";
+        }
+
+        // 현재 로그인된 사용자의 역할이 ADMIN인지 확인
+        Member findMember = memberService.findOne(memberForm.getId());
+        if (findMember.getRole() != RoleStatus.ADMIN) {
+            // 관리자가 아닌 경우 접근 권한이 없음을 알리는 페이지로 이동하거나,
+            // 다른 적절한 처리를 수행할 수 있습니다.
+            return "redirect:/access-denied"; // 예시로 접근 거부 페이지로 리다이렉트
+        }
+
+        // 현재 로그인된 사용자가 관리자인 경우, 모든 유저 정보를 가져와서 모델에 추가
+        List<Member> members = memberService.findAllMembers();
+        model.addAttribute("members", members);
+
+        return "boards/memberList";
     }
 }
