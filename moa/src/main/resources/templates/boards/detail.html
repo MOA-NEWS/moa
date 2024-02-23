@@ -54,7 +54,7 @@
                 </div>
                 <div th:text="${comment.content}"></div>
                 <div class="d-md-flex text-secondary fs-7">
-                    <span th:text="${comment.commentDate}"></span>
+                    <span th:text="${#temporals.format(comment.commentDate, 'yyyy.MM.dd HH:mm')}"></span>
                     <a th:class="ms-5" th:href="@{/comments/{boardId}/{parentId}(boardId = ${boardForm.id}, parentId = ${comment.parent?.id ?: comment.id})}"
                        class="link-underline-opacity-0">
                         <img src="/image/arrow-return-right.svg" alt="대댓글">

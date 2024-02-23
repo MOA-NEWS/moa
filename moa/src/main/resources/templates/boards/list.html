@@ -32,7 +32,7 @@
                         <span class="text-danger text-opacity-75" th:text="'[ '+${board.comments.size}+' ]'"></span>
                     </a>
                 </td>
-                <td class="col-md-3" th:text="${board.postDate}"></td>
+                <td class="col-md-3" th:text="${@dateForm.formatDate(board.postDate)}"></td>
             </tr>
 
             </tbody>
