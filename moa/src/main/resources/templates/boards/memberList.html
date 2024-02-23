@@ -7,7 +7,22 @@
 
 <div class="container min-vh-90 h-auto">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
-    <h3>일반 유저 목록</h3>
+    <div>
+        <div style="display: inline-block;">
+            <h3>유저 목록</h3>
+        </div>
+        <div style="display: inline-block;">
+            <select id="roleSelect">
+                <option value="">선택</option>
+                <option value="ALL">전체</option>
+                <option th:each="role : ${T(com.moa.domain.RoleStatus).values()}"
+                        th:value="${role.toString()}"
+                th:text="${role.grade}">
+                </option>
+            </select>
+            <button onclick="getMembersByRole()">조회</button>
+        </div>
+    </div>
     <div>
         <table class="table table-hover">
             <thead class="table-light">
@@ -26,9 +41,13 @@
             </tbody>
         </table>
     </div>
-
-
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
+<script th:inline="javascript">
+    function getMembersByRole() {
+        const role = document.getElementById("roleSelect").value;
+        window.location.href = '/admin/members?role=' + role;
+    }
+</script>
 </html>

@@ -30,13 +30,21 @@ public class MemberRepository {
 
     }
 
+    // 전체 유저 검색
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
     }
 
-    // 모든 일반유저 검색
-    public List<Member> findAllMembers() {
+    // 전체 관리자유저 검색
+    public List<Member> findAllAdmins() {
+        return em.createQuery("SELECT m FROM Member m WHERE m.role = :role", Member.class)
+                .setParameter("role", RoleStatus.ADMIN)
+                .getResultList();
+    }
+
+    // 전체 일반유저 검색
+    public List<Member> findAllUsers() {
         return em.createQuery("SELECT m FROM Member m WHERE m.role = :role", Member.class)
                 .setParameter("role", RoleStatus.USER)
                 .getResultList();

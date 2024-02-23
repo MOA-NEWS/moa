@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.List;
 
@@ -127,27 +130,36 @@ public class MemberController {
         return "redirect:/members/retire";
     }
 
-    // 모든 일반유저 검색
+    // 전체 및 등급별 유저 검색
     @GetMapping("/admin/members")
-    public String getAllUsers(Model model, HttpServletRequest request) {
+    public String getMembersByRole(@RequestParam(value = "role", required = false) String roleStr, Model model, HttpServletRequest request) {
         MemberForm memberForm = (MemberForm) request.getSession().getAttribute("user");
+
+        // 세션이 없을경우 로그인 페이지로 리다이렉트
         if (memberForm == null) {
-            // 로그인되어 있지 않은 경우 로그인 페이지로 리다이렉트
             return "redirect:/members/login";
         }
 
-        // 현재 로그인된 사용자의 역할이 ADMIN인지 확인
+        // 관리자만 접근 가능, 아닐경우 에러페이지
         Member findMember = memberService.findOne(memberForm.getId());
         if (findMember.getRole() != RoleStatus.ADMIN) {
-            // 관리자가 아닌 경우 접근 권한이 없음을 알리는 페이지로 이동하거나,
-            // 다른 적절한 처리를 수행할 수 있습니다.
-            return "redirect:/access-denied"; // 예시로 접근 거부 페이지로 리다이렉트
+            return "redirect:/not_authorized";
         }
 
-        // 현재 로그인된 사용자가 관리자인 경우, 모든 유저 정보를 가져와서 모델에 추가
-        List<Member> members = memberService.findAllMembers();
-        model.addAttribute("members", members);
+        List<Member> members;
+        if (roleStr == null) { // 처음 접속시 빈 리스트
+            members = new ArrayList<>();
+        } else if ("ALL".equals(roleStr)) {
+            members = memberService.findAll();
+        } else {
+            RoleStatus role = RoleStatus.valueOf(roleStr); // 문자열을 RoleStatus로 변환
+            members = switch (role) {
+                case ADMIN -> memberService.findAllAdmins();
+                case USER -> memberService.findAllUsers();
+            };
+        }
 
+        model.addAttribute("members", members);
         return "boards/memberList";
     }
 }

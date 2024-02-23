@@ -44,9 +44,19 @@ public class MemberService {
         return memberRepository.findById(memberId).orElse(null);
     }
 
-    // 모든 일반유저 검색
-    public List<Member> findAllMembers() {
-        return memberRepository.findAllMembers();
+    // 전체 유저 검색
+    public List<Member> findAll() {
+        return memberRepository.findAll();
+    }
+
+    // 전체 관리자유저 검색
+    public List<Member> findAllAdmins() {
+        return memberRepository.findAllAdmins();
+    }
+
+    // 전체 일반유저 검색
+    public List<Member> findAllUsers() {
+        return memberRepository.findAllUsers();
     }
 
     @Transactional
