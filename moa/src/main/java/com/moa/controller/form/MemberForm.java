@@ -9,5 +9,6 @@ public class MemberForm {
     private Long id;
     private String name;
     private RoleStatus role;
+    private Boolean locked = Boolean.FALSE;
 //    private String pw;
 }

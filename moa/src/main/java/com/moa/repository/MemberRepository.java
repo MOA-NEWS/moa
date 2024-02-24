@@ -1,6 +1,7 @@
 package com.moa.repository;
 
 import com.moa.domain.Member;
+import com.moa.domain.RoleStatus;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -29,13 +30,22 @@ public class MemberRepository {
 
     }
 
+    // 전체 유저 검색
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
     }
 
+    // 권한 검색
+    public List<Member> findAllByRole(RoleStatus role) {
+        return em.createQuery("SELECT m FROM Member m WHERE m.role = :role", Member.class)
+                .setParameter("role", role)
+                .getResultList();
+    }
+
+    // Member.locked 업데이트로 바꿔야함
     public void deleteById(Long memberId) {
-        Optional<Member> findMember = findById(memberId);
-        findMember.ifPresent(em::remove);
+//        Optional<Member> findMember = findById(memberId);
+//        findMember.ifPresent(em::remove);
     }
 }

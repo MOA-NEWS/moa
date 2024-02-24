@@ -34,7 +34,7 @@
                     </a>
                 </td>
                 <td class="col-md-2" th:text="${board.member.name}"></td>
-                <td class="col-md-2" th:text="${board.postDate}"></td>
+                <td class="col-md-2" th:text="${@util.formatDate(board.postDate)}"></td>
             </tr>
 
             </tbody>

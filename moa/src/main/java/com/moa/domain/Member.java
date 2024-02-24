@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
-
+@Setter
 public class Member {
 
     @Id
@@ -14,12 +14,12 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @Setter
     private String name;
 
-    @Setter
     @Enumerated(EnumType.STRING)
     private RoleStatus role; // ADMIN, USER
+
+    private Boolean locked = Boolean.FALSE;
 
     // 기본생성자 사용 금지
     protected Member(){

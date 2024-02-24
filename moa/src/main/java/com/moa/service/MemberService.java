@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,6 +44,15 @@ public class MemberService {
         return memberRepository.findById(memberId).orElse(null);
     }
 
+    // 전체 유저 검색
+    public List<Member> findAll() {
+        return memberRepository.findAll();
+    }
+
+    // 권한 검색
+    public List<Member> findAllByRole(String role) {
+        return memberRepository.findAllByRole(RoleStatus.valueOf(role));
+    }
     @Transactional
     public boolean update(MemberForm memberForm) {
 

@@ -32,6 +32,9 @@ public class LoginController {
             return "redirect:/login";
         }
         memberForm.setId(findMember.getId());
+        memberForm.setRole(findMember.getRole());
+        memberForm.setName(findMember.getName());
+
         request.getSession().setAttribute("user", memberForm);
         return "redirect:/";
     }

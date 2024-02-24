@@ -2,6 +2,7 @@ package com.moa.controller;
 
 import com.moa.controller.form.MemberForm;
 import com.moa.domain.Member;
+import com.moa.domain.RoleStatus;
 import com.moa.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -11,7 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -30,6 +35,40 @@ public class MemberController {
     public String create(MemberForm memberForm) {
         memberService.join(memberForm);
         return "redirect:/login";
+    }
+
+    //    @GetMapping("/login")
+    public String loginFrom(Model model) {
+        model.addAttribute("memberForm", new MemberForm());
+//        model.addAttribute("loginFail", model.getAttribute("loginFail"));
+        return "members/loginForm";
+    }
+
+    //인터셉터로 이동 때 마다 로그인 여부 확인(만들어야함) 혹은 스프링 시큐리티 사용
+//    @PostMapping("/login")
+    public String login(MemberForm memberForm, HttpServletRequest request, RedirectAttributes re) {
+        Member findMember = memberService.findOne(memberForm.getName());
+        if (findMember == null) {
+            // Model에 저장됨
+            re.addFlashAttribute("loginFail", "이름을 확인 해주세요");
+            return "redirect:/login";
+        }
+        memberForm.setId(findMember.getId());
+        memberForm.setRole(findMember.getRole());
+        memberForm.setName(findMember.getName());
+
+        request.getSession().setAttribute("user", memberForm);
+        return "redirect:/";
+    }
+
+    //    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);// 새로운 세션을 생성하지 않음
+
+        if (session != null) {
+            session.invalidate();
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/members/info")
@@ -52,7 +91,7 @@ public class MemberController {
     public String updateForm(Model model, HttpServletRequest request) {
 
         MemberForm user = (MemberForm) request.getSession().getAttribute("user");
-        if (user == null) return "redirect:/members/login";
+        if (user == null) return "redirect:/login";
 
         model.addAttribute("memberForm", user);
         return "members/memberUpdate";
@@ -78,8 +117,9 @@ public class MemberController {
         MemberForm user = (MemberForm) session.getAttribute("user");
         boolean result = false;
 
-        if (user != null)
+        if (user != null) {
             result = memberService.retire(user.getId());
+        }
 
         if (result) {
             // 정상처리 됨
@@ -88,5 +128,36 @@ public class MemberController {
         }
         re.addFlashAttribute("retireFail", "처리 중에 문제가 발생되었습니다. 다시 한번 시도해주세요.");
         return "redirect:/members/retire";
+    }
+
+    // 전체 및 등급별 유저 검색
+    @GetMapping("/admin/members")
+    public String getMembersByRole(@RequestParam(value = "role", required = false) String roleStr, Model model, HttpServletRequest request) {
+        MemberForm memberForm = (MemberForm) request.getSession().getAttribute("user");
+
+        // 세션이 없을경우 로그인 페이지로 리다이렉트
+        if (memberForm == null) {
+            return "redirect:/login";
+        }
+
+        // 관리자만 접근 가능, 아닐경우 에러페이지
+        Member findMember = memberService.findOne(memberForm.getId());
+        if (findMember.getRole() != RoleStatus.ADMIN) {
+            return "redirect:/not_authorized";
+        }
+
+        List<Member> members;
+        if (roleStr == null) { // 처음 접속시 빈 리스트
+            members = new ArrayList<>();
+        } else if (roleStr.isEmpty()) {
+            return "boards/memberList";
+        } else if (roleStr.equals("ALL")) {
+            members = memberService.findAll();
+        } else {
+            members = memberService.findAllByRole(roleStr);
+        }
+
+        model.addAttribute("members", members);
+        return "boards/memberList";
     }
 }
