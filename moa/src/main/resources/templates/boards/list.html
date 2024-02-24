@@ -52,8 +52,8 @@
 
             <!-- 이전 링크 활성화 비활성화 -->
             <li class="page-item">
-                <a class="page-link"
-                   th:href="${boards.first} ? '#' : @{/boards/list(page=${boards.number})}">이전</a>
+                <a class="page-link" th:if="${not boards.first}" th:href="@{/boards/list(page=${boards.number})}">이전</a>
+                <span class="page-link" th:if="${boards.first}">이전</span>
             </li>
 
             <!-- 페이지 번호 링크(현재 페이지는 숫자만)
@@ -73,8 +73,8 @@
 
             <!-- 다음 링크 활성화 비활성화 -->
             <li class="page-item">
-                <a class="page-link"
-                   th:href="${boards.last} ? '#' : @{/boards/list(page=${boards.number + 2})}">다음</a>
+                <a class="page-link" th:if="${not boards.last}" th:href="@{/boards/list(page=${boards.number + 2})}">다음</a>
+                <span class="page-link" th:if="${boards.last}">다음</span>
             </li>
 
             <!-- 마지막 페이지로 이동 -->
