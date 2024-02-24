@@ -1,11 +1,11 @@
-package com.moa.controller;
+package com.moa.controller.old;
 
 import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
 import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
 import com.moa.domain.Comment;
-import com.moa.domain.Member;
+import com.moa.domain.old.Member;
 import com.moa.dto.response.BoardResponseDto;
 import com.moa.service.impl.BoardPreferenceService;
 import com.moa.service.impl.BoardService;
@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-@Controller
+//@Controller
 @RequiredArgsConstructor
 public class BoardController {
     private final BoardService boardService;

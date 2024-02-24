@@ -1,7 +1,7 @@
-package com.moa.controller;
+package com.moa.controller.old;
 
 import com.moa.controller.form.MemberForm;
-import com.moa.domain.Member;
+import com.moa.domain.old.Member;
 import com.moa.service.impl.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+//@Controller
 @RequiredArgsConstructor
 public class LoginController {
     private final MemberService memberService;

@@ -1,4 +1,4 @@
-package com.moa.controller;
+package com.moa.controller.old;
 
 import com.moa.controller.form.MemberForm;
 import com.moa.service.impl.BoardPreferenceService;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
+//@Controller
 @RequiredArgsConstructor
 public class BoardPreferenceController {
 

@@ -1,8 +1,8 @@
-package com.moa.service;
+package com.moa.service.impl;
 
 import com.moa.controller.form.BoardForm;
 import com.moa.domain.Board;
-import com.moa.domain.Member;
+import com.moa.domain.old.Member;
 import com.moa.dto.response.BoardResponseDto;
 import com.moa.repository.BoardRepository;
 import com.moa.repository.PageRepository;

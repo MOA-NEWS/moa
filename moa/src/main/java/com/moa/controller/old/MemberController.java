@@ -1,8 +1,8 @@
-package com.moa.controller;
+package com.moa.controller.old;
 
 import com.moa.controller.form.MemberForm;
-import com.moa.domain.RoleStatus;
 import com.moa.domain.old.Member;
+import com.moa.domain.RoleStatus;
 import com.moa.service.impl.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+//@Controller
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {

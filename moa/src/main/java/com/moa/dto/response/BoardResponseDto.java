@@ -2,12 +2,10 @@ package com.moa.dto.response;
 
 import com.moa.domain.Board;
 import com.moa.domain.Comment;
-import com.moa.domain.Member;
-import com.moa.domain.RoleStatus;
+import com.moa.domain.old.Member;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter

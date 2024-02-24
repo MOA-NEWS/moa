@@ -1,4 +1,4 @@
-package com.moa.controller;
+package com.moa.controller.old;
 
 import com.moa.controller.form.CommentForm;
 import com.moa.controller.form.MemberForm;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
+//@Controller
 @RequiredArgsConstructor
 public class CommentController {
     private final CommentService commentService;

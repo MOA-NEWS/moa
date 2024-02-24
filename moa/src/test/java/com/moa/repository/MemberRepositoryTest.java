@@ -1,6 +1,6 @@
 package com.moa.repository;
 
-import com.moa.domain.Member;
+import com.moa.domain.old.Member;
 import com.moa.domain.RoleStatus;
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;

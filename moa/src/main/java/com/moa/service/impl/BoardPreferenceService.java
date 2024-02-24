@@ -1,4 +1,4 @@
-package com.moa.service;
+package com.moa.service.impl;
 
 import com.moa.domain.Board;
 import com.moa.domain.BoardPreference;

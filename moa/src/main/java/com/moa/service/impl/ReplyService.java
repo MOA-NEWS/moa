@@ -1,4 +1,4 @@
-package com.moa.service;
+package com.moa.service.impl;
 
 import com.moa.domain.Comment;
 import com.moa.domain.Reply;

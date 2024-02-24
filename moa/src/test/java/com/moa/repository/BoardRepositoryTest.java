@@ -1,20 +1,19 @@
 package com.moa.repository;
 
 import com.moa.domain.*;
-import com.moa.service.BoardService;
-import com.moa.service.CommentService;
-import com.moa.service.MemberService;
-import com.moa.service.ReplyService;
+import com.moa.domain.old.Member;
+import com.moa.service.impl.BoardService;
+import com.moa.service.impl.CommentService;
+import com.moa.service.impl.MemberService;
+import com.moa.service.impl.ReplyService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 

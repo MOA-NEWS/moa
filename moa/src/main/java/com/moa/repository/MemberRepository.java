@@ -43,6 +43,9 @@ public class MemberRepository {
                 .getResultList();
     }
 
+    public boolean existsByName(String name) {
+        return findByName(name).isPresent();
+    }
     // Member.locked 업데이트로 바꿔야함
     public void deleteById(Long memberId) {
 //        Optional<Member> findMember = findById(memberId);
