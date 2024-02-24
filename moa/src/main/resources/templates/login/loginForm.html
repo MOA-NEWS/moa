@@ -8,7 +8,7 @@
 <div class="container min-vh-90 h-auto">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
     <h3>로그인</h3>
-    <form action="/members/login" th:object="${memberForm}" method="post">
+    <form action="/login" th:object="${memberForm}" method="post">
         <div class="form-floating mb-3">
             <input type="text" th:class="${loginFail} ? 'form-control border border-danger':'form-control'"
                    th:field="*{name}" autofocus>

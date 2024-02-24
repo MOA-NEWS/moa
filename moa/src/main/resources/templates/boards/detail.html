@@ -15,7 +15,8 @@
         <div style="display: flex; justify-content: flex-start;">
             <div>
                 <!-- 좋아요 버튼 -->
-                <form class="form-floating" th:action="@{/boards/{boardId}/like(boardId=${boardForm.id})}" method="post">
+                <form class="form-floating" th:action="@{/boards/{boardId}/like(boardId=${boardForm.id})}"
+                      method="post">
                     <button type="submit" class="btn btn-primary">
                         <!-- 누적 좋아요 수 -->
                         👍 <span th:text=" ${likeCount} + '개'"></span>
@@ -24,7 +25,8 @@
             </div>
             <div style="margin-left: 10px;">
                 <!-- 싫어요 버튼 -->
-                <form class="form-floating" th:action="@{/boards/{boardId}/dislike(boardId=${boardForm.id})}" method="post">
+                <form class="form-floating " th:action="@{/boards/{boardId}/dislike(boardId=${boardForm.id})}"
+                      method="post">
                     <button type="submit" class="btn btn-primary">
                         <!-- 누적 싫어요 수 -->
                         👎 <span th:text=" ${dislikeCount} + '개'"></span>
@@ -40,11 +42,13 @@
         <!--댓글 작성 공간-->
         <div>
             <form th:action="@{/comments/{boardId}(boardId = ${boardForm.id})}"
-                  class="form-floating d-md-flex justify-content-md-center align-items-center" th:object="${commentForm}"
+                  class="form-floating d-md-flex justify-content-md-center align-items-center"
+                  th:object="${commentForm}"
                   method="post">
-                <textarea class="my-3 me-3 form-control" th:field="*{content}" cols="30" rows="4"
-                          style="resize: none;"></textarea>
-                <input class="btn btn-secondary" type="submit" value="작성">
+<textarea class="my-3 me-3 form-control" th:field="*{content}" cols="30" rows="4"
+          style="resize: none;"></textarea>
+                <label th:if="${session.user == null}" th:for="content" class="form-label">로그인 후 작성 가능합니다.</label>
+                <input th:unless="${session.user == null}" class="btn btn-secondary" type="submit" value="작성">
             </form>
         </div>
         <!--댓글 목록-->
@@ -55,7 +59,8 @@
                 <div th:text="${comment.content}"></div>
                 <div class="d-md-flex text-secondary fs-7">
                     <span th:text="${comment.commentDate}"></span>
-                    <a th:class="ms-5" th:href="@{/comments/{boardId}/{parentId}(boardId = ${boardForm.id}, parentId = ${comment.parent?.id ?: comment.id})}"
+                    <a th:class="ms-5"
+                       th:href="@{/comments/{boardId}/{parentId}(boardId = ${boardForm.id}, parentId = ${comment.parent?.id ?: comment.id})}"
                        class="link-underline-opacity-0">
                         <img src="/image/arrow-return-right.svg" alt="대댓글">
                     </a>

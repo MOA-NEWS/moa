@@ -73,8 +73,12 @@ public class BoardPreferenceService {
         } else {
             // 선호도가 있을 경우에는 해당 객체를 가져옴
             BoardPreference boardPreference = boardPreferenceRepository.findByMemberIdAndBoardId(memberId, boardId);
-            // 싫어요 상태를 반전 및 좋아요 초기화
-            boardPreferenceRepository.updatePreferenceStatus(memberId, boardId, !isDislike, isDislike);
+            if (isDislike)
+                // 싫어요 상태를 반전 및 좋아요 초기화
+                boardPreferenceRepository.updatePreferenceStatus(memberId, boardId, false, !boardPreference.isDislikes());
+            else
+                // 좋아요 상태를 반전 및 싫어요 초기화
+                boardPreferenceRepository.updatePreferenceStatus(memberId, boardId, !boardPreference.isLikes(), false);
         }
     }
 

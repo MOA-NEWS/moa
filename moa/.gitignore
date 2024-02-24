@@ -3,7 +3,8 @@ src/test/
 README.md
 file/uml/
 !file/description/
-
+db.properties
+application-dev.properties
 
 HELP.md
 .gradle

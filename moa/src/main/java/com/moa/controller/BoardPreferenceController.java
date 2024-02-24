@@ -22,7 +22,7 @@ public class BoardPreferenceController {
         MemberForm memberForm = (MemberForm) request.getSession().getAttribute("user");
         if (memberForm == null) {
             // 세션에 회원 ID가 없으면 로그인 페이지로 리다이렉트
-            return "redirect:/members/login";
+            return "redirect:/login";
         }
         // 게시글에 좋아요 토글 수행
         boardPreferenceService.toggleLike(memberForm.getId(), boardId);
@@ -38,7 +38,7 @@ public class BoardPreferenceController {
         MemberForm memberForm = (MemberForm) request.getSession().getAttribute("user");
         if (memberForm == null) {
             // 세션에 회원 ID가 없으면 로그인 페이지로 리다이렉트
-            return "redirect:/members/login";
+            return "redirect:/login";
         }
         // 게시글에 싫어요 토글 수행
         boardPreferenceService.toggleDislike(memberForm.getId(), boardId);
@@ -57,7 +57,7 @@ public class BoardPreferenceController {
         if (memberForm == null) {
             // 세션에 회원 ID가 없으면 로그인 페이지로 리다이렉트
             re.addFlashAttribute("loginFail", "로그인 후에 이용해주세요");
-            return "redirect:/members/login";
+            return "redirect:/login";
         }
         // 게시글 선호도 토글 수행
         boardPreferenceService.togglePrefer(memberForm.getId(), boardId, isDislike);

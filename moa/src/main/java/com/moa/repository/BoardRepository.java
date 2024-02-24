@@ -3,6 +3,8 @@ package com.moa.repository;
 import com.moa.domain.Board;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -51,4 +53,6 @@ public class BoardRepository {
         return em.createQuery(jpql, Board.class)
                 .getResultList();
     }
+
+
 }
