@@ -11,7 +11,7 @@ public class BoardPreference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "boardPreference_id")
+    @Column(name = "board_preference_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
