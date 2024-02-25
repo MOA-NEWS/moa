@@ -97,10 +97,13 @@ public class BoardController {
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
-
         model.addAttribute("comments",comments);
-        model.addAttribute("likeCount", boardPreferenceService.countLikes(boardId));
-        model.addAttribute("dislikeCount", boardPreferenceService.countDislikes(boardId));
+
+        // 좋아요 수와 싫어요 수를 가져와서 모델에 추가
+        Long likesCount = boardPreferenceService.countLikes(boardId);
+        Long dislikesCount = boardPreferenceService.countDislikes(boardId);
+        model.addAttribute("likeCount", likesCount);
+        model.addAttribute("dislikeCount", dislikesCount);
         return "boards/detail";
     }
 }
