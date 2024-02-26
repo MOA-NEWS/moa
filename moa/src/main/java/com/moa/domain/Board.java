@@ -1,6 +1,7 @@
 package com.moa.domain;
 
 import com.moa.domain.Member;
+import com.moa.dto.response.BoardListResponseDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedStoredProcedureQuery(
+        name = "findAllByPageNum",
+        procedureName = "call_find_all_by_page_num",
+        resultClasses = Long.class,
+        parameters = {
+                @StoredProcedureParameter(name = "page_num", mode = ParameterMode.IN, type = Integer.class),
+                @StoredProcedureParameter(name = "page_size", mode = ParameterMode.IN, type = Integer.class),
+                @StoredProcedureParameter(name = "boardId", mode = ParameterMode.OUT, type = Long.class),
+
+        }
+)
 @Entity
 @Getter
 @Setter

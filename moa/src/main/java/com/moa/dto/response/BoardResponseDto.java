@@ -26,4 +26,17 @@ public class BoardResponseDto {
         this.comments = board.getComments();
     }
 
+    // make toString method whit StringBuilder
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("BoardResponseDto{");
+        sb.append("id=").append(id);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", member=").append(member);
+        sb.append(", content='").append(content).append('\'');
+        sb.append(", postDate=").append(postDate);
+        sb.append(", comments=").append(comments);
+        sb.append('}');
+        return sb.toString();
+    }
 }
