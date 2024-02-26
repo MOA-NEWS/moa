@@ -1,16 +1,12 @@
-package com.moa.service;
+package com.moa.util.realTest;
 
 import com.moa.domain.Board;
 import com.moa.domain.BoardPreference;
 import com.moa.repository.BoardRepository;
 import com.moa.repository.MemberRepository;
-import com.moa.repository.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +20,6 @@ public class TestService {
     @Transactional // 좋아요 / 싫어요 통합 토글
     public void beforeTogglePrefer(Long memberId, Long boardId, boolean isDislike) {
         // 게시글을 찾아보고 없으면 예외처리
-        System.out.println("시작");
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
 
@@ -35,18 +30,15 @@ public class TestService {
             BoardPreference boardPreference = BoardPreference
                     .createBoardPreference(memberRepository.findById(memberId).get(), board, !isDislike, isDislike);
             testRepository.save(boardPreference);
-            System.out.println("끝");
         } else {
             // 선호도가 있을 경우에는 해당 객체를 가져옴
             BoardPreference boardPreference = testRepository.findByMemberIdAndBoardId(memberId, boardId);
             if(isDislike) {
                 // 싫어요 상태를 반전 및 좋아요 초기화
                 testRepository.updatePreferenceStatus(memberId, boardId, false, !boardPreference.isDislikes());
-                System.out.println("끝");
             } else {
                 // 좋아요 상태를 반전 및 싫어요 초기화
                 testRepository.updatePreferenceStatus(memberId, boardId, !boardPreference.isLikes(), false);
-                System.out.println("끝");
             }
         }
     }
@@ -62,12 +54,12 @@ public class TestService {
     }
 
 
+    // ↑↑ JPA    ↓↓ 프로시저
+
 
     @Transactional // 좋아요 / 싫어요 통합 토글
     public void afterTogglePrefer(Long memberId, Long boardId, boolean isDislike) {
-        System.out.println("시작");
         testRepository.callTogglePrefer(memberId, boardId, isDislike);
-        System.out.println("끝");
     }
 
     // 좋아요 누적수
