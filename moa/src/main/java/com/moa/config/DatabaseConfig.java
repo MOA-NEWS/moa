@@ -1,4 +1,4 @@
-package com.moa.util;
+package com.moa.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

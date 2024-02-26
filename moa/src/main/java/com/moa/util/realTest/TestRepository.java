@@ -1,4 +1,4 @@
-package com.moa.repository;
+package com.moa.util.realTest;
 
 import com.moa.domain.BoardPreference;
 import jakarta.persistence.EntityManager;
@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Types;
-import java.util.HashMap;
 import java.util.Map;
 
 @Repository
@@ -52,6 +51,24 @@ public class TestRepository {
                 .executeUpdate();
     }
 
+    // 좋아요 누적수
+    public Long countLikesByBoardId(Long boardId) {
+        return em.createQuery("SELECT COUNT(bl) FROM BoardPreference bl WHERE bl.board.id = :boardId AND bl.likes = true", Long.class)
+                .setParameter("boardId", boardId)
+                .getSingleResult();
+    }
+
+    // 싫어요 누적수
+    public Long countDislikesByBoardId(Long boardId) {
+        return em.createQuery("SELECT COUNT(bl) FROM BoardPreference bl WHERE bl.board.id = :boardId AND bl.dislikes = true", Long.class)
+                .setParameter("boardId", boardId)
+                .getSingleResult();
+    }
+
+
+    // ↑↑ JPA    ↓↓ 프로시저
+
+
     // 좋아요 / 싫어요 통합 토글
     public void callTogglePrefer(Long memberId, Long boardId, boolean isDislike) {
         SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
@@ -65,12 +82,6 @@ public class TestRepository {
         jdbcCall.execute(inParams);
     }
 
-    // 좋아요 누적수
-    public Long countLikesByBoardId(Long boardId) {
-        return em.createQuery("SELECT COUNT(bl) FROM BoardPreference bl WHERE bl.board.id = :boardId AND bl.likes = true", Long.class)
-                .setParameter("boardId", boardId)
-                .getSingleResult();
-    }
     // 좋아요 누적수
     public Long callCountLikesByBoardIdProcedure(Long boardId) {
         SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
@@ -88,12 +99,6 @@ public class TestRepository {
         return (Long) result.get("likes_count");
     }
 
-    // 싫어요 누적수
-    public Long countDislikesByBoardId(Long boardId) {
-        return em.createQuery("SELECT COUNT(bl) FROM BoardPreference bl WHERE bl.board.id = :boardId AND bl.dislikes = true", Long.class)
-                .setParameter("boardId", boardId)
-                .getSingleResult();
-    }
     // 싫어요 누적수
     public Long callCountDislikesByBoardIdProcedure(Long boardId) {
         SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
