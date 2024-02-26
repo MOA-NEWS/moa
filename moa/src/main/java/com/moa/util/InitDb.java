@@ -20,13 +20,13 @@ public class InitDb {
     private final InitService initService;
     private static final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-    @PostConstruct
-    public void init() {
+//    @PostConstruct
+//    public void init() {
 //        initService.dbInit1();
 //        initService.dbInit2();
 //        initService.dbInit3();
 //        initService.dbInit4();
-    }
+//    }
 
     @Component
     @Transactional

@@ -5,11 +5,13 @@ import com.moa.controller.form.CommentForm;
 import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
 import com.moa.domain.Comment;
+import com.moa.dto.response.MemberDetails;
 import com.moa.service.TestService;
 import com.moa.service.impl.BoardService;
 import com.moa.service.impl.CommentService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,20 +54,15 @@ public class TestController {
 
     // 좋아요 / 싫어요 통합
     @PostMapping({"/beforeTest/{boardId}/dislike", "/beforeTest/{boardId}/like"})
-    public String beforeTogglePrefer(@PathVariable Long boardId, HttpServletRequest request, RedirectAttributes re) {
+    public String beforeTogglePrefer(@AuthenticationPrincipal MemberDetails member, @PathVariable Long boardId, HttpServletRequest request) {
         // path가 .../dislike인지 확인
         boolean isDislike = request.getServletPath().contains("dis");
         // 세션에서 회원 ID 가져오기
-        MemberForm memberForm = (MemberForm) request.getSession().getAttribute("user");
-        if (memberForm == null) {
-            // 세션에 회원 ID가 없으면 로그인 페이지로 리다이렉트
-            re.addFlashAttribute("loginFail", "로그인 후에 이용해주세요");
-            return "redirect:/login";
-        }
+
         LocalDateTime startTime = LocalDateTime.now();
         // 게시글 선호도 토글 수행
-        for (int i = 1; i <= 1001; i++) {
-            testService.beforeTogglePrefer(memberForm.getId(), boardId, isDislike);
+        for (int i = 1; i <= 101; i++) {
+            testService.beforeTogglePrefer(member.getId(), boardId, isDislike);
         }
         LocalDateTime endTime = LocalDateTime.now();
 
@@ -100,20 +97,14 @@ public class TestController {
 
     // 좋아요 / 싫어요 통합
     @PostMapping({"/afterTest/{boardId}/dislike", "/afterTest/{boardId}/like"})
-    public String afterTogglePrefer(@PathVariable Long boardId, HttpServletRequest request, RedirectAttributes re) {
+    public String afterTogglePrefer(@AuthenticationPrincipal MemberDetails member, @PathVariable Long boardId, HttpServletRequest request) {
         // path가 .../dislike인지 확인
         boolean isDislike = request.getServletPath().contains("dis");
-        // 세션에서 회원 ID 가져오기
-        MemberForm memberForm = (MemberForm) request.getSession().getAttribute("user");
-        if (memberForm == null) {
-            // 세션에 회원 ID가 없으면 로그인 페이지로 리다이렉트
-            re.addFlashAttribute("loginFail", "로그인 후에 이용해주세요");
-            return "redirect:/login";
-        }
+
         LocalDateTime startTime = LocalDateTime.now();
         // 게시글 선호도 토글 수행
-        for (int i = 1; i <= 1001; i++) {
-            testService.afterTogglePrefer(memberForm.getId(), boardId, isDislike);
+        for (int i = 1; i <= 101; i++) {
+            testService.afterTogglePrefer(member.getId(), boardId, isDislike);
         }
         LocalDateTime endTime = LocalDateTime.now();
 
