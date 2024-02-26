@@ -1,22 +1,22 @@
 package com.moa.repository;
 
-import com.moa.domain.Board;
 import com.moa.domain.BoardPreference;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Types;
-import java.util.List;
 import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
-public class BoardPreferenceRepository {
+public class TestRepository {
     private final EntityManager em;
     private final JdbcTemplate jdbcTemplate;
 

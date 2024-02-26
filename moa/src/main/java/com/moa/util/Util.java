@@ -18,7 +18,7 @@ public class Util {
             return date.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         }
     }
-    public static void existUserInSession(HttpServletRequest request) {
+    public void existUserInSession(HttpServletRequest request) {
 
     }
 }
