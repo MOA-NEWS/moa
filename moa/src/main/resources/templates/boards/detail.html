@@ -20,7 +20,7 @@
                       method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <!-- 누적 좋아요 수 -->
-                    <button type="submit" class="btn btn-primary" th:text=" ${likeCount} + '개'">
+                    <button type="submit" class="btn btn-primary" th:text="|👍 ${likeCount}개|">
                     </button>
                 </form>
             </div>
@@ -30,7 +30,7 @@
                       method="post">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <!-- 누적 싫어요 수 -->
-                    <button type="submit" class="btn btn-primary" th:text=" ${dislikeCount} + '개'">
+                    <button type="submit" class="btn btn-primary" th:text="|👎 ${dislikeCount}개|">
                     </button>
                 </form>
             </div>
