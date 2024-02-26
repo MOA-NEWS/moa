@@ -1,10 +1,9 @@
-package com.moa.service;
+package com.moa.util.realTest;
 
 import com.moa.domain.Board;
 import com.moa.domain.BoardPreference;
 import com.moa.repository.BoardRepository;
 import com.moa.repository.MemberRepository;
-import com.moa.repository.TestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +55,8 @@ public class TestService {
         return testRepository.countDislikesByBoardId(boardId);
     }
 
+
+    // ↑↑ JPA    ↓↓ 프로시저
 
 
     @Transactional // 좋아요 / 싫어요 통합 토글

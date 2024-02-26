@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/header :: header}">
     <title>Detail</title>
 </head>
@@ -10,10 +11,10 @@
     <h3 th:text="*{title}"></h3>
     <div class="border-top border-bottom rounded border-secondary-subtle mb-3 pb-3">
         <div>
-            <div class="my-3 w-100 h-auto" th:text="*{content}"></div>
+            <div class="my-3 w-100 min-vh-60 h-auto" th:text="*{content}"></div>
         </div>
-        <div style="display: flex; justify-content: flex-start;">
-            <div>
+        <div class="d-md-flex justify-content-md-start">
+            <div class="me-1">
                 <!-- 좋아요 버튼 -->
                 <form class="form-floating" th:action="@{/jpaTest/{boardId}/like(boardId=${boardForm.id})}"
                       method="post">
@@ -24,7 +25,7 @@
                     </button>
                 </form>
             </div>
-            <div style="margin-left: 10px;">
+            <div>
                 <!-- 싫어요 버튼 -->
                 <form class="form-floating " th:action="@{/jpaTest/{boardId}/dislike(boardId=${boardForm.id})}"
                       method="post">
@@ -40,32 +41,34 @@
     </div>
 
     <div>
-
         <!--댓글 작성 공간-->
         <div>
-            <form th:action="@{/comments/{boardId}(boardId = ${boardForm.id})}"
+            <form th:action="@{/beforeTest/{boardId}(boardId = ${boardForm.id})}"
                   class="form-floating d-md-flex justify-content-md-center align-items-center"
                   th:object="${commentForm}"
                   method="post">
-<textarea class="my-3 me-3 form-control" th:field="*{content}" cols="30" rows="4"
-          style="resize: none;"></textarea>
-                <label th:if="${session.user == null}" th:for="content" class="form-label">로그인 후 작성 가능합니다.</label>
-                <input th:unless="${session.user == null}" class="btn btn-secondary" type="submit" value="작성">
+                <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                <textarea class="my-3 me-3 form-control" th:field="*{content}" cols="30" rows="4"
+                          style="resize: none;"></textarea>
+                <label sec:authorize="isAnonymous()" th:for="content" class="form-label">로그인 후 작성 가능합니다.</label>
+                <input sec:authorize="isAuthenticated()" class="btn btn-secondary" type="submit" value="작성">
             </form>
         </div>
         <!--댓글 목록-->
-        <div th:each="comment : ${comments}" class="row ">
+        <div th:each="comment : ${comments}" class="row">
             <div th:class="'mb-3 ' + ${comment.parent == null ? 'col-md-12':'col-md-11 offset-md-1'}">
                 <div th:text="${comment.member.name}">
                 </div>
                 <div th:text="${comment.content}"></div>
                 <div class="d-md-flex text-secondary fs-7">
                     <span th:text="${#temporals.format(comment.commentDate, 'yyyy.MM.dd HH:mm')}"></span>
-                    <a th:class="ms-5"
-                       th:href="@{/beforeTest/{boardId}/{parentId}(boardId = ${boardForm.id}, parentId = ${comment.parent?.id ?: comment.id})}"
-                       class="link-underline-opacity-0">
-                        <img src="/image/arrow-return-right.svg" alt="대댓글">
-                    </a>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <a th:class="ms-5"
+                           th:href="@{/beforeTest/{boardId}/{parentId}(boardId = ${boardForm.id}, parentId = ${comment.parent?.id ?: comment.id})}"
+                           class="link-underline-opacity-0">
+                            <img src="/image/arrow-return-right.svg" alt="대댓글">
+                        </a>
+                    </th:block>
 
                 </div>
                 <hr>

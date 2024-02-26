@@ -1,12 +1,10 @@
-package com.moa.controller;
+package com.moa.util.realTest;
 
 import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
-import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
 import com.moa.domain.Comment;
 import com.moa.dto.response.MemberDetails;
-import com.moa.service.TestService;
 import com.moa.service.impl.BoardService;
 import com.moa.service.impl.CommentService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -42,7 +39,7 @@ public class TestController {
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments", comments);
 
         // 좋아요 수와 싫어요 수를 가져와서 모델에 추가
         Long likesCount = testService.beforeCountLikes(boardId);
@@ -60,11 +57,10 @@ public class TestController {
 
         LocalDateTime startTime = LocalDateTime.now();
         // 게시글 선호도 토글 수행
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 101; i++) {
             testService.beforeTogglePrefer(member.getId(), boardId, isDislike);
         }
         LocalDateTime endTime = LocalDateTime.now();
-
 
         Duration duration = Duration.between(startTime, endTime);
         System.out.println(duration.getSeconds() + "초");
@@ -72,6 +68,10 @@ public class TestController {
         // 게시글 상세 페이지로 리다이렉트하며 토글된 후에 게시글 ID를 함께 전달
         return "redirect:/jpaTest/" + boardId;
     }
+
+
+    // ↑↑ JPA    ↓↓ 프로시저
+
 
     @GetMapping("/spTest/{boardId}")
     public String afterDetail(@PathVariable("boardId") Long boardId, Model model) {
@@ -84,7 +84,7 @@ public class TestController {
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments", comments);
 
         // 좋아요 수와 싫어요 수를 가져와서 모델에 추가
         Long likesCount = testService.afterCountLikes(boardId);
@@ -103,15 +103,15 @@ public class TestController {
         LocalDateTime startTime = LocalDateTime.now();
         // 게시글 선호도 토글 수행
         for (int i = 1; i <= 1001; i++) {
-            testService.afterTogglePrefer(member.getId(), boardId, isDislike);
+                testService.afterTogglePrefer(member.getId(), boardId, isDislike);
+            }
+            LocalDateTime endTime = LocalDateTime.now();
+
+            Duration duration = Duration.between(startTime, endTime);
+            System.out.println(duration.getSeconds() + "초");
+            System.out.println(duration.toMillis() + "밀리초");
+
+            // 게시글 상세 페이지로 리다이렉트하며 토글된 후에 게시글 ID를 함께 전달
+            return "redirect:/spTest/" + boardId;
         }
-        LocalDateTime endTime = LocalDateTime.now();
-
-        Duration duration = Duration.between(startTime, endTime);
-        System.out.println(duration.getSeconds() + "초");
-        System.out.println(duration.toMillis() + "밀리초");
-
-        // 게시글 상세 페이지로 리다이렉트하며 토글된 후에 게시글 ID를 함께 전달
-        return "redirect:/spTest/" + boardId;
     }
-}

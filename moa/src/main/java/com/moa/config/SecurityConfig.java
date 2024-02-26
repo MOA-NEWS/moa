@@ -48,6 +48,7 @@ public class SecurityConfig {
                                 "/boards/list", "/boards/{boardId}",
                                 "/members/new",
                                 "/jpaTest/**", "/spTest/**"
+
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/boards/new").hasAnyRole("USER") // USER, ADMIN 둘 다 가능
