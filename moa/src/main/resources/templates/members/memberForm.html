@@ -10,20 +10,18 @@
 
     <h3>회원가입</h3>
     <form action="/members/new" th:object="${memberForm}" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" th:field="*{name}">
-            <label th:for="name" class="form-label">이름</label>
-
+            <div class="mb-3">
+                <input type="text" th:class="'form-control ' + (${joinFail} ? 'border border-danger' : '')"
+                       th:field="*{name}">
+                <label th:for="name" class="form-label" th:text="${joinFail} ? ${joinFail} : '이름'"></label>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" th:field="*{password}">
+                <label th:for="password" class="form-label">비밀번호</label>
+            </div>
         </div>
-
-        <!--        <div class="form-floating mb-3">-->
-        <!--            <input type="password" class="form-control" th:field="password">-->
-        <!--            <label for="password" class="form-label">Password</label>-->
-        <!--        </div>-->
-        <!--        <div class="mb-3 form-check">-->
-        <!--            <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
-        <!--            <label class="form-check-label" for="exampleCheck1">Check me out</label>-->
-        <!--        </div>-->
         <button type="submit" class="btn btn-primary">가입하기</button>
     </form>
 </div>

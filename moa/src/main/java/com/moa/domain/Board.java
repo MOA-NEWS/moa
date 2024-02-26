@@ -1,6 +1,6 @@
 package com.moa.domain;
 
-import com.moa.domain.old.Member;
+import com.moa.domain.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

@@ -38,6 +38,8 @@ dependencies {
 
 	//security
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	//thymeleaf security
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
 	// in detail show parameter of jpa sql
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'

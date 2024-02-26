@@ -1,7 +1,6 @@
 package com.moa.repository;
 
 import com.moa.domain.Member;
-import com.moa.domain.RoleStatus;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -37,9 +36,9 @@ public class MemberRepository {
     }
 
     // 권한 검색
-    public List<Member> findAllByRole(RoleStatus role) {
-        return em.createQuery("SELECT m FROM Member m WHERE m.role = :role", Member.class)
-                .setParameter("role", role)
+    public List<Member> findAllByRole(String role) {
+        return em.createQuery("SELECT m FROM Member m WHERE m.role like concat ('ROLE_',:role)", Member.class)
+                .setParameter("role", role.toUpperCase())
                 .getResultList();
     }
 

@@ -2,7 +2,7 @@ package com.moa.dto.response;
 
 import com.moa.domain.Board;
 import com.moa.domain.Comment;
-import com.moa.domain.old.Member;
+import com.moa.domain.Member;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

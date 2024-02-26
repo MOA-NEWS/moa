@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Component
 public class Util {
-    public static String formatDate(LocalDateTime date) {
+    public String formatDate(LocalDateTime date) {
         LocalDateTime now = LocalDateTime.now();
         if (date.toLocalDate().isEqual(now.toLocalDate())) {
             // If the date is today, only display the time

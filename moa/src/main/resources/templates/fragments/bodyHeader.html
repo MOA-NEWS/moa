@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <div class="header" th:fragment="bodyHeader">
     <nav class="rounded px-3 navbar navbar-expand-lg bg-body-tertiary">
         <a class="navbar-brand" href="/"><h3>MOA</h3></a>
+
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -13,12 +16,12 @@
                     <a class="nav-link" href="/boards/list">게시판</a>
                 </li>
                 <li class="nav-item"
-                    th:if="${session.user != null and session.user.role == T(com.moa.domain.RoleStatus).ADMIN}">
+                    sec:authorize="hasRole('ADMIN')">
                     <a class="nav-link" href="/admin/members">멤버리스트</a>
                 </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
-                <th:block th:if="${session.user == null}">
+                <th:block sec:authorize="isAnonymous()">
                     <li class="nav-item">
                         <a class="nav-link" href="/login">로그인</a>
                     </li>
@@ -26,9 +29,9 @@
                         <a class="nav-link" href="/members/new">회원가입</a>
                     </li>
                 </th:block>
-                <th:block th:unless="${session.user == null}">
+                <th:block sec:authorize="isAuthenticated()">
                     <li class="nav-item">
-                        <a class="nav-link" th:text="'안녕하세요 ' + ${session.user.name} + '님'"></a>
+                        <a class="nav-link" th:text="'안녕하세요 ' + ${#authentication.name} + '님'"></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/members/info">내 정보</a>
@@ -41,6 +44,22 @@
             </ul>
         </div>
     </nav>
+    <div th:text="|AuthenticationIsNull: ${#authentication == null}|"></div>
+    <div th:text="|Authentication.name: ${#authentication.name}|"></div>
+    <div th:text="|Authentication.principal: ${#authentication.principal}|"></div>
+    <div th:text="|Authentication.authenticated: ${#authentication.authenticated}|"></div>
+    <th:block th:each="authority: ${#authentication.authorities}">
+        <div th:text="|Authentication.authority: ${authority}|"></div>
+    </th:block>
+    <div th:text="|Authentication.details: ${#authentication.details}|"></div>
+    <div th:text="|Authentication.credentials: ${#authentication.credentials}|"></div>
+    <br><br>
+    <div sec:authentication="principal"></div>
+    <div sec:authentication="name"></div>
+    <div sec:authentication="credentials"></div>
+    <div sec:authentication="details"></div>
+    <div sec:authentication=""></div>
+    <div sec:authorize-expr=""></div>
 </div>
 
 

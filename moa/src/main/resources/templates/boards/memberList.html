@@ -30,7 +30,7 @@
                 <th>*</th>
                 <th class="col-md-6">이름</th>
                 <th class="col-md-2">등급</th>
-                <th class="col-md-2">계정 잠김 상태</th>
+                <th class="col-md-2">계정 가능 여부</th>
             </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -38,7 +38,7 @@
                 <td class="col-md-2" th:text="${member.id}"></td>
                 <td class="col-md-6" th:text="${member.name}"></td>
                 <td class="col-md-2" th:text="${member.role}"></td>
-                <td class="col-md-2" th:text="${member.locked}"></td>
+                <td class="col-md-2" th:text="${member.enabled}"></td>
             </tr>
             </tbody>
         </table>

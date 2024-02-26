@@ -1,6 +1,5 @@
 package com.moa.service.impl;
 
-import com.moa.domain.Comment;
 import com.moa.domain.Reply;
 import com.moa.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;

@@ -3,6 +3,7 @@ package com.moa.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.userdetails.User;
 
 @Entity
 @Getter
@@ -16,18 +17,33 @@ public class Member {
 
     private String name;
 
-    @Enumerated(EnumType.STRING)
-    private RoleStatus role; // ADMIN, USER
+    private String password;
 
-    private Boolean locked = Boolean.FALSE;
+    private String role; // ADMIN, USER, ...
+
+    private boolean enabled;
 
     // 기본생성자 사용 금지
-    protected Member(){
+    protected Member() {
 
     }
-    public Member(String name, RoleStatus role){
+
+    public Member(String name, String password, String role) {
         this.name = name;
+        this.password = password;
         this.role = role;
+        this.enabled = true;
     }
 
+    // make toString() with StringBuilder
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append("Member [id=").append(id)
+                .append(", name=").append(name)
+                .append(", password=").append(password)
+                .append(", role=").append(role)
+                .append(", enabled=").append(enabled)
+                .append("]").toString();
+    }
 }

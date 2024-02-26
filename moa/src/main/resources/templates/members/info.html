@@ -9,16 +9,18 @@
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
     <h3>회원 정보 변경</h3>
-    <div th:object="${memberForm}">
+    <div>
         <table class="table border">
             <tbody>
             <tr>
                 <th>등급</th>
-                <td th:text="*{role.grade}"></td>
+                <td th:each="auth : ${#authentication.authorities}">
+                    <span th:text="|${auth.authority} |"></span>
+                </td>
             </tr>
             <tr>
                 <th>이름</th>
-                <td th:text="*{name}"></td>
+                <td th:text="${#authentication.name}"></td>
             </tr>
             </tbody>
         </table>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/header :: header}">
     <title>Retired</title>
 </head>
@@ -9,15 +10,11 @@
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
 
     <h3>탈퇴</h3>
-    <th:block th:if="${retireFail}">
-        <div th:text="${retireFail}" class="fw-semibold text-bg-danger">
-        </div>
-    </th:block>
     <div class="d-md-flex justify-content-center">
-        <form action="/members/retire" th:object="${memberForm}" method="post">
-            <!--        <th:block><input type="hidden" th:value="*{id}" th:field="*{id}"/></th:block>-->
+        <form action="/members/retire" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <div class="form-floating mb-3">
-                <p>탈퇴 시 귀하의 모든 정보가 삭제됩니다.</p>
+                <p>탈퇴 시 <span th:text="|${#authentication.name}님의|"></span> 모든 정보가 삭제됩니다.</p>
                 <p>정말로 탈퇴하시겠습니까?</p>
             </div>
 

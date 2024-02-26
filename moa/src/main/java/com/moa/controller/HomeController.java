@@ -1,6 +1,9 @@
 package com.moa.controller;
 
+import com.moa.dto.response.MemberResponseDto;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller

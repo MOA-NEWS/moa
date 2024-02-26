@@ -1,13 +1,15 @@
 package com.moa.util;
 
 import com.moa.domain.Board;
-import com.moa.domain.old.Member;
+import com.moa.domain.Member;
 import com.moa.domain.Comment;
 import com.moa.domain.RoleStatus;
-import com.moa.service.impl.MemberService;
+import com.moa.service.MemberService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class InitDb {
 
     private final InitService initService;
+    private static final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @PostConstruct
     public void init() {
-        initService.dbInit1();
-        initService.dbInit2();
-        initService.dbInit3();
-        initService.dbInit4();
+//        initService.dbInit1();
+//        initService.dbInit2();
+//        initService.dbInit3();
+//        initService.dbInit4();
     }
 
     @Component
@@ -31,6 +34,7 @@ public class InitDb {
     static class InitService {
         private final EntityManager em;
         private final MemberService memberService;
+
         public void dbInit1() {
             Member member = createMember("userA", RoleStatus.ADMIN);
             em.persist(member);
@@ -71,7 +75,7 @@ public class InitDb {
 
         // 생성자 메소드
         private static Member createMember(String name, RoleStatus role) {
-            return new Member(name, role);
+            return new Member(name, bCryptPasswordEncoder.encode("1234"), role.getAuthority());
         }
 
         private static Board createBoard(String title, String content, Member member) {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/header :: header}">
     <title>Login</title>
 </head>
@@ -8,12 +9,17 @@
 <div class="container min-vh-90 h-auto">
     <div th:replace="~{fragments/bodyHeader :: bodyHeader}"></div>
     <h3>로그인</h3>
-    <form action="/login" th:object="${memberForm}" method="post">
-        <div class="form-floating mb-3">
-            <input type="text" th:class="${loginFail} ? 'form-control border border-danger':'form-control'"
+    <form action="/loginProc" th:object="${memberForm}" method="post">
+        <input type="hidden" th:name = "${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div class="mb-3 form-floating">
+            <input type="text" th:class="'form-control '+(${param.error} ? 'border border-danger':'')"
                    th:field="*{name}" autofocus>
-            <label th:for="name" th:text="${loginFail} ? ${loginFail} : '이름'"
+            <label th:for="name" th:text="${param.error} ? '아이디와 비밀번호를 확인 해주세요' : '이름'"
                    class="form-label"></label>
+        </div>
+        <div class="mb-3 form-floating">
+            <input type="password" class="form-control" th:field="*{password}">
+            <label th:for="password" class="form-label">비밀번호</label>
         </div>
         <button type="submit" class="btn btn-primary">로그인하기</button>
     </form>

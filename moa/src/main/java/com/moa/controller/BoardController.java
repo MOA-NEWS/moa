@@ -7,21 +7,22 @@ import com.moa.domain.Board;
 import com.moa.domain.Comment;
 import com.moa.domain.Member;
 import com.moa.dto.response.BoardResponseDto;
+import com.moa.dto.response.MemberDetails;
+import com.moa.service.MemberService;
 import com.moa.service.impl.BoardPreferenceService;
 import com.moa.service.impl.BoardService;
 import com.moa.service.impl.CommentService;
-import com.moa.service.impl.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -34,13 +35,7 @@ public class BoardController {
     private final CommentService commentService;
     private final BoardPreferenceService boardPreferenceService;
 
-    // 페이징 : 아직안함
-//    @GetMapping("/boards/list")
-    public String boardList(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
-        List<BoardResponseDto> boards = boardService.findAll(page);
-        model.addAttribute("boards", boards);
-        return "boards/list";
-    }
+
     // 페이징 구현 중
     @GetMapping("/boards/list")
     public String boardPaging(@PageableDefault(page = 1) Pageable pageable, Model model) {
@@ -64,25 +59,17 @@ public class BoardController {
     }
 
     @GetMapping("/boards/new")
-    public String createBoardForm(Model model, HttpServletRequest request, RedirectAttributes re) {
-        MemberForm mForm = (MemberForm) request.getSession().getAttribute("user");
-        if(mForm == null) {
-            // Model에 저장됨
-            re.addFlashAttribute("loginFail", "로그인 후에 이용해주세요");
-            return "redirect:/login";
-        }
+    public String createBoardForm(Model model) {
+
         model.addAttribute("boardForm", new BoardForm());
         return "boards/boardForm";
     }
 
     @PostMapping("/boards/new")
-    public String createBoard(BoardForm boardForm, HttpServletRequest request) {
-        MemberForm mForm = (MemberForm) request.getSession().getAttribute("user");
-        Member member = memberService.findOne(mForm.getId());
+    public String createBoard(@AuthenticationPrincipal MemberDetails member, BoardForm boardForm) {
         if (member != null) {
             boardService.save(boardForm, member);
         }
-
         return "redirect:/boards/list";
     }
 

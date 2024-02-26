@@ -3,7 +3,7 @@ package com.moa.service.impl;
 import com.moa.controller.form.CommentForm;
 import com.moa.domain.Board;
 import com.moa.domain.Comment;
-import com.moa.domain.old.Member;
+import com.moa.domain.Member;
 import com.moa.repository.BoardRepository;
 import com.moa.repository.CommentRepository;
 import com.moa.repository.MemberRepository;
