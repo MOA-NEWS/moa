@@ -59,5 +59,16 @@ public class Comment {
     protected Comment() {
     }
 
-
+    @Override
+    public String toString() {
+        return "Comment{" +
+               "id=" + id +
+               ", content='" + content + '\'' +
+               ", commentDate=" + commentDate +
+               ", member=" + member +
+               ", board=" + board +
+               ", parent=" + parent +
+               ", children=" + children +
+               '}';
+    }
 }

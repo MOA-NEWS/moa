@@ -14,11 +14,11 @@ import java.util.List;
 @NamedStoredProcedureQuery(
         name = "findAllByPageNum",
         procedureName = "call_find_all_by_page_num",
-        resultClasses = Long.class,
+        resultClasses = Board.class,
         parameters = {
                 @StoredProcedureParameter(name = "page_num", mode = ParameterMode.IN, type = Integer.class),
                 @StoredProcedureParameter(name = "page_size", mode = ParameterMode.IN, type = Integer.class),
-                @StoredProcedureParameter(name = "boardId", mode = ParameterMode.OUT, type = Long.class),
+//                @StoredProcedureParameter(name = "boardId", mode = ParameterMode.OUT, type = Long.class),
 
         }
 )
@@ -43,6 +43,7 @@ public class Board {
     private Member member;
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("coalesce(parent.id, id), commentDate")
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -62,5 +63,18 @@ public class Board {
     public void setComment(Comment comment) {
         this.comments.add(comment);
         comment.setBoard(this);
+    }
+
+    // make toString with String
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", postDate=" + postDate +
+                ", member=" + member +
+                '}';
+
     }
 }

@@ -31,6 +31,9 @@ public class MemberController {
 
     @GetMapping("/members/new")
     public String createForm(Model model) {
+        if (model.containsAttribute("memberForm")) {
+            return "members/memberForm";
+        }
         model.addAttribute("memberForm", new MemberForm());
         return "members/memberForm";
     }

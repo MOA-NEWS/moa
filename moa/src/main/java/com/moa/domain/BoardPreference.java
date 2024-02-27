@@ -38,4 +38,15 @@ public class BoardPreference {
 
         return boardPreference;
     }
+
+    @Override
+    public String toString() {
+        return "BoardPreference{" +
+               "id=" + id +
+               ", member=" + member +
+               ", board=" + board +
+               ", likes=" + likes +
+               ", dislikes=" + dislikes +
+               '}';
+    }
 }

@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +49,8 @@ public class BoardRepository {
         spq.setParameter("page_num", page - 1);
         spq.setParameter("page_size", PAGE_SIZE);
         spq.execute();
-
-        return spq.getOutputParameterValue("boardId");
+//        return spq.getOutputParameterValue("boardId");
+        return spq.getResultList();
 
     }
 

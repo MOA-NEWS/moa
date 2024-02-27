@@ -4,6 +4,7 @@ import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
 import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
+import com.moa.domain.BoardPreference;
 import com.moa.domain.Comment;
 import com.moa.domain.Member;
 import com.moa.dto.response.BoardResponseDto;
@@ -67,9 +68,7 @@ public class BoardController {
 
     @PostMapping("/boards/new")
     public String createBoard(@AuthenticationPrincipal MemberDetails member, BoardForm boardForm) {
-        if (member != null) {
-            boardService.save(boardForm, member);
-        }
+        boardService.save(boardForm, member);
         return "redirect:/boards/list";
     }
 
@@ -84,7 +83,7 @@ public class BoardController {
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments", comments);
 
         // 좋아요 수와 싫어요 수를 가져와서 모델에 추가
         Long likesCount = boardPreferenceService.countLikes(boardId);
@@ -92,5 +91,29 @@ public class BoardController {
         model.addAttribute("likeCount", likesCount);
         model.addAttribute("dislikeCount", dislikesCount);
         return "boards/detail";
+    }
+    @GetMapping("/boards/{boardId}/2")
+    public String detail2(@PathVariable("boardId") Long boardId, Model model) {
+        Board findBoard = boardService.findOne(boardId);
+        List<BoardPreference> boardPreferences = findBoard.getBoardPreferences();
+        int likesCount = 0;
+        int dislikesCount = 0;
+        for (BoardPreference bp : boardPreferences) {
+            if (bp.isLikes()) {
+                likesCount++;
+            }
+            /* else {
+                dislikesCount++;
+            }*/
+        }
+        dislikesCount = boardPreferences.size() - likesCount;
+        model.addAttribute("boardForm", findBoard);
+        model.addAttribute("likeCount", likesCount);
+        model.addAttribute("dislikeCount", dislikesCount);
+
+
+        // 댓글 작성용
+        model.addAttribute("commentForm", new CommentForm());
+        return "boards/detail2";
     }
 }

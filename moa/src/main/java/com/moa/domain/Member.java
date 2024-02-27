@@ -35,15 +35,15 @@ public class Member {
         this.enabled = true;
     }
 
-    // make toString() with StringBuilder
+    // make toString() with String
     @Override
     public String toString() {
-        return new StringBuilder()
-                .append("Member [id=").append(id)
-                .append(", name=").append(name)
-                .append(", password=").append(password)
-                .append(", role=").append(role)
-                .append(", enabled=").append(enabled)
-                .append("]").toString();
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", enabled=" + enabled +
+                '}';
     }
 }

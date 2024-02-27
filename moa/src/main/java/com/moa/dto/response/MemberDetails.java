@@ -67,5 +67,10 @@ public class MemberDetails implements UserDetails {
         return member.isEnabled();
     }
 
-
+    @Override
+    public String toString() {
+        return "MemberDetails{" +
+               "member=" + member +
+               '}';
+    }
 }
