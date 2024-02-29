@@ -76,9 +76,9 @@ public class BoardPreferenceRepository {
                 .withProcedureName("call_toggle_preference");
 
         SqlParameterSource inParams = new MapSqlParameterSource()
-                .addValue("member_id", memberId)
-                .addValue("board_id", boardId)
-                .addValue("is_dislike", isDislike);
+                .addValue("pi_member_id", memberId)
+                .addValue("pi_board_id", boardId)
+                .addValue("pi_is_dislike", isDislike);
 
         jdbcCall.execute(inParams);
     }
