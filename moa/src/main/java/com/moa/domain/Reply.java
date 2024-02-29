@@ -24,12 +24,12 @@ public class Reply {
     // 다대일
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
-    private Comment comment;
+    private Comments comment;
 
     // 기본생성자 사용 금지
     protected Reply(){}
 
-    public Reply(String text, LocalDateTime replyDate, Comment comment){
+    public Reply(String text, LocalDateTime replyDate, Comments comment){
         this.text = text;
         this.replyDate = replyDate;
         this.comment = comment;

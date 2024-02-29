@@ -2,18 +2,15 @@ package com.moa.controller;
 
 import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
-import com.moa.controller.form.MemberForm;
 import com.moa.domain.Board;
 import com.moa.domain.BoardPreference;
-import com.moa.domain.Comment;
-import com.moa.domain.Member;
+import com.moa.domain.Comments;
 import com.moa.dto.response.BoardResponseDto;
 import com.moa.dto.response.MemberDetails;
 import com.moa.service.MemberService;
 import com.moa.service.impl.BoardPreferenceService;
 import com.moa.service.impl.BoardService;
 import com.moa.service.impl.CommentService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -79,7 +75,7 @@ public class BoardController {
         form.setId(boardId);
         form.setTitle(findBoard.getTitle());
         form.setContent(findBoard.getContent());
-        List<Comment> comments = commentService.findAllByBoardId(boardId);
+        List<Comments> comments = commentService.findAllByBoardId(boardId);
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
@@ -102,11 +98,10 @@ public class BoardController {
             if (bp.isLikes()) {
                 likesCount++;
             }
-            /* else {
+             else if(bp.isDislikes()) {
                 dislikesCount++;
-            }*/
+            }
         }
-        dislikesCount = boardPreferences.size() - likesCount;
         model.addAttribute("boardForm", findBoard);
         model.addAttribute("likeCount", likesCount);
         model.addAttribute("dislikeCount", dislikesCount);

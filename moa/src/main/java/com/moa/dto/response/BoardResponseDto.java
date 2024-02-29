@@ -1,7 +1,7 @@
 package com.moa.dto.response;
 
 import com.moa.domain.Board;
-import com.moa.domain.Comment;
+import com.moa.domain.Comments;
 import com.moa.domain.Member;
 import lombok.Getter;
 
@@ -15,7 +15,7 @@ public class BoardResponseDto {
     private Member member;
     private String content;
     private LocalDateTime postDate;
-    private List<Comment> comments;
+    private List<Comments> comments;
 
     public BoardResponseDto(Board board){
         this.id = board.getId();

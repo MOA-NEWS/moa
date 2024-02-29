@@ -1,10 +1,8 @@
 package com.moa.controller;
 
 import com.moa.controller.form.CommentForm;
-import com.moa.controller.form.MemberForm;
 import com.moa.dto.response.MemberDetails;
 import com.moa.service.impl.CommentService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -19,7 +17,7 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/comments/{boardId}")
-    public String createComment(@AuthenticationPrincipal MemberDetails member, CommentForm commentForm, @PathVariable("boardId") Long boardId) {
+    public String createComment(@AuthenticationPrincipal MemberDetails member, @PathVariable("boardId") Long boardId, CommentForm commentForm) {
         commentService.addComment(boardId, member.getId(), commentForm);
         return "redirect:/boards/" + boardId;
 

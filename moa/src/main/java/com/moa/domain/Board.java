@@ -44,7 +44,7 @@ public class Board {
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("coalesce(parent.id, id), commentDate")
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comments> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BoardPreference> boardPreferences = new ArrayList<>();
@@ -60,7 +60,7 @@ public class Board {
     }
 
     // 양방향으로 참조
-    public void setComment(Comment comment) {
+    public void setComment(Comments comment) {
         this.comments.add(comment);
         comment.setBoard(this);
     }

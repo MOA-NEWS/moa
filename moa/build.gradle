@@ -42,14 +42,15 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
 	// in detail show parameter of jpa sql
-	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
+//	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	// Mockito 및 JUnit 의존성 추가
-	testImplementation 'org.mockito:mockito-core:3.12.4'
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+//	testImplementation 'org.mockito:mockito-core:3.12.4'
+//	testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
 }
 
 tasks.named('test') {

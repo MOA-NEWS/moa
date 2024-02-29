@@ -33,7 +33,10 @@ public class BoardPreferenceRepository {
 
     // 선호도 상태 조회
     public BoardPreference findByMemberIdAndBoardId(Long memberId, Long boardId) {
-        return em.createQuery("SELECT bl FROM BoardPreference bl WHERE bl.member.id = :memberId AND bl.board.id = :boardId", BoardPreference.class)
+        return em.createQuery(
+                        "SELECT bl FROM BoardPreference bl " +
+                        "WHERE bl.member.id = :memberId AND bl.board.id = :boardId",
+                        BoardPreference.class)
                 .setParameter("memberId", memberId)
                 .setParameter("boardId", boardId)
                 .getSingleResult();

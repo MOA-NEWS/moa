@@ -3,7 +3,7 @@ package com.moa.util.realTest;
 import com.moa.controller.form.BoardForm;
 import com.moa.controller.form.CommentForm;
 import com.moa.domain.Board;
-import com.moa.domain.Comment;
+import com.moa.domain.Comments;
 import com.moa.dto.response.MemberDetails;
 import com.moa.service.impl.BoardService;
 import com.moa.service.impl.CommentService;
@@ -35,7 +35,7 @@ public class TestController {
         form.setId(boardId);
         form.setTitle(findBoard.getTitle());
         form.setContent(findBoard.getContent());
-        List<Comment> comments = commentService.findAllByBoardId(boardId);
+        List<Comments> comments = commentService.findAllByBoardId(boardId);
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());
@@ -80,7 +80,7 @@ public class TestController {
         form.setId(boardId);
         form.setTitle(findBoard.getTitle());
         form.setContent(findBoard.getContent());
-        List<Comment> comments = commentService.findAllByBoardId(boardId);
+        List<Comments> comments = commentService.findAllByBoardId(boardId);
 
         model.addAttribute("boardForm", form);
         model.addAttribute("commentForm", new CommentForm());

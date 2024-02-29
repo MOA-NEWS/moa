@@ -5,6 +5,8 @@ file/uml/
 !file/description/
 db.properties
 application-dev.properties
+scouterTest/
+heapdump/
 
 HELP.md
 .gradle

@@ -39,9 +39,11 @@ public class MemberDetails implements UserDetails {
     public void setUsername(String username) {
         member.setName(username);
     }
+
     public Long getId() {
         return member.getId();
     }
+
     //아래 4개의 옵션은 DB에 추가하지 않았기 때문에 ID 사용을 가능케 하기위해 강제로 true로 바꾼다
     //사용자 ID 만료여부
     @Override

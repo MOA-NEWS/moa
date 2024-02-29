@@ -6,6 +6,7 @@ import com.moa.domain.RoleStatus;
 import com.moa.dto.response.MemberDetails;
 import com.moa.repository.MemberRepository;
 import com.moa.service.MemberService;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +26,7 @@ import java.util.Optional;
 public class MemberServiceImpl implements UserDetailsService, MemberService {
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EntityManager em;
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
@@ -33,6 +35,8 @@ public class MemberServiceImpl implements UserDetailsService, MemberService {
         // 있으면 MemberDetails 객체로 반환
         Optional<Member> findMember = memberRepository
                 .findByName(name);
+
+        // 비밀번호는 알아서 해줌
 
         return findMember
                 .map(MemberDetails::new)
@@ -104,6 +108,8 @@ public class MemberServiceImpl implements UserDetailsService, MemberService {
     public boolean retire(Long memberId) {
         Optional<Member> member = memberRepository.findById(memberId);
         member.ifPresent(findMember -> findMember.setEnabled(false));
+
         return member.isPresent();
     }
+
 }

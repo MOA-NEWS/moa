@@ -1,14 +1,13 @@
 package com.moa.util;
 
 import com.moa.domain.Board;
+import com.moa.domain.Comments;
 import com.moa.domain.Member;
-import com.moa.domain.Comment;
 import com.moa.domain.RoleStatus;
 import com.moa.service.MemberService;
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,13 +19,13 @@ public class InitDb {
     private final InitService initService;
     private static final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
-//    @PostConstruct
-//    public void init() {
+    @PostConstruct
+    public void init() {
 //        initService.dbInit1();
 //        initService.dbInit2();
 //        initService.dbInit3();
 //        initService.dbInit4();
-//    }
+    }
 
     @Component
     @Transactional
@@ -98,8 +97,8 @@ public class InitDb {
             return new Board(title, content, member);
         }
 
-        private static Comment createComment(String content, Member member, Board board) {
-            return Comment.createComment(content, member, board);
+        private static Comments createComment(String content, Member member, Board board) {
+            return Comments.createComment(content, member, board);
         }
     }
 }

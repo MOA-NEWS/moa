@@ -2,10 +2,12 @@ package com.moa.service.impl;
 
 import com.moa.controller.form.CommentForm;
 import com.moa.domain.Board;
-import com.moa.domain.Comment;
+import com.moa.domain.Comments;
+import com.moa.domain.Comments;
 import com.moa.domain.Member;
 import com.moa.repository.BoardRepository;
-import com.moa.repository.CommentRepository;
+import com.moa.repository.CommentsRepository;
+import com.moa.repository.CommentsRepository;
 import com.moa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,24 +21,24 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class CommentService {
 
-    private final CommentRepository commentRepository;
+    private final CommentsRepository commentRepository;
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
     @Transactional
-    public void save(Comment comment) {
+    public void save(Comments comment) {
         commentRepository.save(comment);
     }
 
-    public Comment findOne(Long commentId) {
+    public Comments findOne(Long commentId) {
         return commentRepository.findById(commentId).orElse(null);
     }
 
-    public List<Comment> findAll() {
+    public List<Comments> findAll() {
         return commentRepository.findAll();
     }
 
-    public List<Comment> findAllByBoardId(Long boardId) {
+    public List<Comments> findAllByBoardId(Long boardId) {
         return commentRepository.findAllByBoardId(boardId);
     }
 
@@ -46,7 +48,7 @@ public class CommentService {
         //조회
         Optional<Board> findBoard = boardRepository.findById(boardId);
         Optional<Member> findMember = memberRepository.findById(memberId);
-        Comment parent = null;
+        Comments parent = null;
 
         //확인
         Board board = findBoard.orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
@@ -56,7 +58,7 @@ public class CommentService {
         }
 
         //생성
-        Comment comment = Comment.createComment(commentForm.getContent(), member, board);
+        Comments comment = Comments.createComment(commentForm.getContent(), member, board);
         if (parent != null) {
             comment.setParent(parent);
         }
@@ -65,4 +67,10 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    @Transactional
+    public long spAddComment(Long boardId, Long memberId, CommentForm commentForm) {
+        //저장
+        return commentRepository.spSaveComment(boardId, memberId, commentForm.getContent(), commentForm.getParentId());
+
+    }
 }

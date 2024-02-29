@@ -47,7 +47,8 @@ public class SecurityConfig {
                                 "/", "/login",
                                 "/boards/list", "/boards/{boardId}",
                                 "/members/new",
-                                "/jpaTest/**", "/spTest/**"
+                                "/jpaTest/**", "/spTest/**",
+                                "/jpestore/**"// APM(Application Performance Monitoring) Scouter
 
                         ).permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -56,9 +57,10 @@ public class SecurityConfig {
                 )
 
                 // 로그인 설정
+                // 시큐리티 기본 화면의 ID : user pw : 콘솔에 찍힘
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/loginProc")
+                        .loginPage("/login") // get
+                        .loginProcessingUrl("/loginProc") // form action url(post)
                         .usernameParameter("name")
                         .passwordParameter("password")
                         .successHandler(new SimpleUrlAuthenticationSuccessHandler("/"))
