@@ -12,7 +12,7 @@
 
 
 #### 개발환경, ERD
-<img width="70%" src="https://github.com/MOA-NEWS/moa/assets/98940420/db29b8aa-956b-4441-9656-83720680fd09"/>
+<img width="30%" src="https://github.com/MOA-NEWS/moa/assets/98940420/db29b8aa-956b-4441-9656-83720680fd09"/>
 
 
 
