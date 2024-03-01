@@ -37,4 +37,4 @@
 
 
 
-[Google]: https://github.com/MOA-NEWS/moa/tree/master/Version1_report
+[산출물(Stored_Procedure&JPA, 개발환경, ERD)]: https://github.com/MOA-NEWS/moa/tree/master/Version1_report
