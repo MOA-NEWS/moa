@@ -11,8 +11,8 @@
 - 프로시저 성능 분석
 
 
-#### 개발환경, ERD
-<img width="30%" src="https://github.com/MOA-NEWS/moa/assets/98940420/db29b8aa-956b-4441-9656-83720680fd09"/>
+### Report
+[산출물(Stored_Procedure&JPA, 개발환경, ERD]
 
 
 
@@ -24,3 +24,17 @@
 - Version1에서 활용하지 못한 Scouter(APM) 사용
 - 부하테스트로 쿼리 성능 개선
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Google]: https://github.com/MOA-NEWS/moa/tree/master/Version1_report
