@@ -68,24 +68,12 @@ public class InitDb {
             em.persist(member);
 
             Member findMember = memberService.findOne("userD");
-            Board book1 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book1);
-            Board book2 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book2);
-            Board book3 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book3);
-            Board book4 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book4);
-            Board book5 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book5);
-            Board book6 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book6);
-            Board book7 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book7);
-            Board book8 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book8);
-            Board book9 = createBoard("페이징 확인", "ㅇㅇ", findMember);
-            em.persist(book9);
+            for (int i = 0; i < 1000; i++) {
+
+                Board book1 = createBoard("페이징 확인" + i, "ㅇㅇ" + i, findMember);
+                em.persist(book1);
+            }
+
         }
 
         // 생성자 메소드

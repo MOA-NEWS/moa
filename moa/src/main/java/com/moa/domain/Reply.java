@@ -5,11 +5,11 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Entity
+//@Entity
 @Getter
 public class Reply {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reply_id")
     private Long id;
 

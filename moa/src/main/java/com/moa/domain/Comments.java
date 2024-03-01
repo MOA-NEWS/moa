@@ -13,10 +13,10 @@ import java.util.List;
         name = "addComment",
         procedureName = "call_add_comment",
         parameters = {
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "pi_parent_id", type = Long.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "pi_board_id", type = Long.class),
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "pi_member_id", type = Long.class),
                 @StoredProcedureParameter(mode = ParameterMode.IN, name = "pi_content", type = String.class),
-                @StoredProcedureParameter(mode = ParameterMode.IN, name = "pi_board_id", type = Long.class),
+                @StoredProcedureParameter(mode = ParameterMode.IN, name = "pi_parent_id", type = Long.class),
 //                @StoredProcedureParameter(mode = ParameterMode.OUT, name = "po_temp", type = Long.class)
         }
 )

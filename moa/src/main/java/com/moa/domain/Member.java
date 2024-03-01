@@ -1,6 +1,7 @@
 package com.moa.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.userdetails.User;
@@ -16,9 +17,7 @@ public class Member {
     private Long id;
 
     private String name;
-
     private String password;
-
     private String role; // ADMIN, USER, ...
 
     private boolean enabled;
@@ -39,11 +38,11 @@ public class Member {
     @Override
     public String toString() {
         return "Member{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", enabled=" + enabled +
-                '}';
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", password='" + password + '\'' +
+               ", role='" + role + '\'' +
+               ", enabled=" + enabled +
+               '}';
     }
 }
