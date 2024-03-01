@@ -44,4 +44,4 @@
 
 
 [산출물(Stored_Procedure&JPA, 개발환경, ERD)]: https://github.com/MOA-NEWS/moa/tree/master/Version1_report
-[scouter1]: https://github.com/MOA-NEWS/moa/assets/98940420/f7852ea7-a6d2-4ce4-8b65-d72c5b126411{: width="50%"}
+[scouter1]: https://github.com/MOA-NEWS/moa/assets/98940420/f7852ea7-a6d2-4ce4-8b65-d72c5b126411 {: width="50%"}
