@@ -13,7 +13,8 @@
 
 ### Report
 [산출물(Stored_Procedure&JPA, 개발환경, ERD)]
-![scouter1](https://github.com/MOA-NEWS/moa/assets/98940420/f7852ea7-a6d2-4ce4-8b65-d72c5b126411)
+<br>
+[scouter1]
 > 왼쪽 부터 JPA /	Spring Data JPA	/ Stored procedure 순서, Scouter 모니터링 결과(게시판 1000개 호출)
 > 미약하게 스토어드 프로시저가 안정감있다
 
@@ -43,3 +44,4 @@
 
 
 [산출물(Stored_Procedure&JPA, 개발환경, ERD)]: https://github.com/MOA-NEWS/moa/tree/master/Version1_report
+[scouter1]: https://github.com/MOA-NEWS/moa/assets/98940420/f7852ea7-a6d2-4ce4-8b65-d72c5b126411{: width="50%"}
