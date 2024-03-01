@@ -12,7 +12,7 @@
 
 
 ### Report
-[산출물(Stored_Procedure&JPA, 개발환경, ERD]
+[산출물(Stored_Procedure&JPA, 개발환경, ERD)]
 
 
 
